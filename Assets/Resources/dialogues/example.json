@@ -1,0 +1,104 @@
+[
+    {
+        "id": 0,
+        "speaker": "player",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "สวัสดี! คุณเป็นใคร?",
+        "text_en": "Hello! Who are you?",
+        "background": "loka"
+    },
+    {
+        "id": 1,
+        "speaker": "npc1",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "ฉันคือ NPC1 ยินดีที่ได้พบคุณ!",
+        "text_en": "I am NPC1, nice to meet you!",
+        "background": "loka"
+    },
+    {
+        "id": 2,
+        "speaker": "player",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "คุณมาทำอะไรที่นี่?",
+        "text_en": "What are you doing here?",
+        "background": "loka"
+    },
+    {
+        "id": 3,
+        "speaker": "npc1",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "ฉันกำลังมองหาสมบัติ คุณล่ะ?",
+        "text_en": "I am looking for treasure. What about you?",
+        "background": "loka"
+    },
+    {
+        "id": 4,
+        "speaker": "player",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "ฉันแค่สำรวจพื้นที่นี้",
+        "text_en": "I am just exploring this area.",
+        "background": "loka"
+    },
+    {
+        "id": 5,
+        "speaker": "npc1",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "ระวังตัวด้วยนะ มันอันตราย",
+        "text_en": "Be careful, it's dangerous.",
+        "background": "loka"
+    },
+    {
+        "id": 6,
+        "speaker": "player",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "ขอบคุณสำหรับคำเตือน!",
+        "text_en": "Thanks for the warning!",
+        "background": "loka"
+    },
+    {
+        "id": 7,
+        "speaker": "npc1",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "โชคดีนะ!",
+        "text_en": "Good luck!",
+        "background": "loka"
+    },
+    {
+        "id": 8,
+        "speaker": "player",
+        "left": "player",
+        "right": "npc1",
+        "choice": 
+        [
+            {"text_th":"งั้นเราแยกย้ายกันไหม","text_en":"Should we split up?","next":9},
+            {"text_th":"ฉันจะไปต่อแล้ว","text_en":"I will move on now.","next":10}
+        ],
+        "background": "loka"
+    },
+    {
+        "id": 9,
+        "speaker": "npc1",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "แล้วเจอกัน!",
+        "text_en": "See you!",
+        "background": "loka"
+    },
+    {
+        "id": 10,
+        "speaker": "player",
+        "left": "player",
+        "right": "npc1",
+        "text_th": "ฉันจะไปต่อแล้ว",
+        "text_en": "I will move on now.",
+        "background": "loka"
+    }
+]

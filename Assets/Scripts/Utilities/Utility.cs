@@ -26,6 +26,6 @@ public static class Utility
 
     public static void LoadDialogueData(string id, Action<TextAsset> onLoad)
     {
-        LoadResource($"{PREFIX_DIALOGUE}{id}.txt", onLoad);
+        LoadResource($"{PREFIX_DIALOGUE}{id}.json", onLoad);
     }
 }
