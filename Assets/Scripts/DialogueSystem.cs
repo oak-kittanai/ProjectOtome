@@ -28,8 +28,8 @@ public class DialogueSystem : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip typingSound;
 
-    [Header("Province")]
-    public string province;
+    // Dialogue Data
+    public string eventDialogueData;
 
     [Header("Language Setting")]
     private TMP_FontAsset enFont; // En Fonts
@@ -37,6 +37,11 @@ public class DialogueSystem : MonoBehaviour
 
     public bool changeLanguage; // true = Th || false = En
     private bool isEpisodeLoading = false;
+
+    [Header("Setting")]
+
+    public bool isBackgroundActive; // true = Background || false = No Background
+    public bool isMiniDialogue; // true = MiniDialogue || false = Dialogue
 
     void Start()
     {
@@ -57,7 +62,7 @@ public class DialogueSystem : MonoBehaviour
         }*/
 
         CheckLauguage(changeLanguage);
-        LoadLevelData();
+        LoadEventDialogueData();
         typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
     }
 
@@ -94,16 +99,16 @@ public class DialogueSystem : MonoBehaviour
         return loaded;
     }
 
-    void LoadLevelData()
+    void LoadEventDialogueData()
     {
         TextAsset json;
         if (!isEnded)
         {
-            json = Resources.Load<TextAsset>("data/th/" + province);
+            json = Resources.Load<TextAsset>("data/th/" + eventDialogueData);
         }
         else
         {
-            json = Resources.Load<TextAsset>("data/th/pre/" + province);
+            json = Resources.Load<TextAsset>("data/th/pre/" + eventDialogueData);
         }
 
         var root = JSON.Parse(json.text)[0]; // assume first node
@@ -140,13 +145,18 @@ public class DialogueSystem : MonoBehaviour
         }
         currentFullText = text;
 
-        string bgPath = node["background"];
+        string bgPath = null; // Set เป็นพื้นหลังที่เป็นพื้นหลังใส
+        if (isBackgroundActive)
+        {
+            bgPath = node["background"];
+        }
+        
         string mainPath = node["main"];
         string otherPath = node["other"];
-
-        backgroundImage.sprite = LoadSpriteFromPath(bgPath);
-        mainImage.sprite = LoadSpriteFromPath(mainPath);
-        otherImage.sprite = LoadSpriteFromPath(otherPath);
+        
+        backgroundImage.sprite = LoadSpriteFromPath(bgPath); // Need to fix path
+        mainImage.sprite = LoadSpriteFromPath(mainPath); // Need to fix path
+        otherImage.sprite = LoadSpriteFromPath(otherPath); // Need to fix path
 
         characterNameText.text = character;
         dialogueText.text = "";
@@ -178,43 +188,29 @@ public class DialogueSystem : MonoBehaviour
                 btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice["text_th"];
             }
 
-            btnObj.GetComponent<Button>().onClick.AddListener(() =>
+            btnObj.GetComponent<Button>().onClick.AddListener(() => // Choice select impact
             {
                 ApplyImpact(choice["impact"].AsObject);
-                choicePanel.SetActive(false);
+                /*choicePanel.SetActive(false);
                 Debug.Log("Choice selected and stats updated.");
 
-                GameObject controller = GameObject.FindWithTag("GameController");
-                /*if (controller != null && controller.GetComponent<LoadSceneManager>() != null)
-                {
-                    if (isEnded)
-                    {
-                        controller.GetComponent<LoadSceneManager>().LoadScene("HallofFame");
-                    }
-                    else
-                    {
-                        controller.GetComponent<LoadSceneManager>().LoadScene("Photo");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("LoadSceneManager not found on GameController.");
-                }*/
+                GameObject controller = GameObject.FindWithTag("GameController");*/
             });
         }
     }
 
     void ApplyImpact(JSONNode impactNode)
     {
-        foreach (KeyValuePair<string, JSONNode> stat in impactNode.AsObject)
+        foreach (KeyValuePair<string, JSONNode> stat in impactNode.AsObject) // อัพเดตค่าสถานะ ต่างๆ ต้องแก้เพิ่ม
         {
+            /*
             string key = stat.Key;
             int current = PlayerPrefs.GetInt(key, 0);
             int delta = stat.Value.AsInt;
             int updated = current + delta;
 
             PlayerPrefs.SetInt(key, updated);
-            Debug.Log($"📊 Updated {key}: {current} → {updated}");
+            Debug.Log($"📊 Updated {key}: {current} → {updated}");*/
         }
 
         PlayerPrefs.Save();
@@ -222,7 +218,7 @@ public class DialogueSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Input.GetMouseButtonDown(0))
         {
             if (isTyping)
             {

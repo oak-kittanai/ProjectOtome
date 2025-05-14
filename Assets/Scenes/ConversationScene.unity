@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 160121172}
   - component: {fileID: 160121171}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Press Space bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1312,6 +1312,7 @@ GameObject:
   - component: {fileID: 1150552104}
   - component: {fileID: 1150552103}
   - component: {fileID: 1150552102}
+  - component: {fileID: 1150552106}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1406,6 +1407,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1150552106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150552101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a29d18f4dce40449e28dbbc50e0906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnded: 0
+  backgroundImage: {fileID: 497100541}
+  mainImage: {fileID: 254084021}
+  otherImage: {fileID: 1554100013}
+  characterNameText: {fileID: 67289760}
+  dialogueText: {fileID: 1464893678}
+  choicePanel: {fileID: 83806859}
+  dialoguePanel: {fileID: 0}
+  choiceButtonPrefab: {fileID: 0}
+  choiceContainer: {fileID: 0}
+  eventDialogueData: 
+  changeLanguage: 0
+  isMiniDialogue: 0
 --- !u!1 &1464893676
 GameObject:
   m_ObjectHideFlags: 0
