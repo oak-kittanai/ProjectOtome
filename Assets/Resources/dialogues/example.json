@@ -78,8 +78,8 @@
         "right": "npc1",
         "choice": 
         [
-            {"text_th":"งั้นเราแยกย้ายกันไหม","text_en":"Should we split up?","next":9},
-            {"text_th":"ฉันจะไปต่อแล้ว","text_en":"I will move on now.","next":10}
+            {"text_th":"งั้นเราแยกย้ายกันไหม","text_en":"Should we split up?","next":9,"love":0},
+            {"text_th":"ฉันจะไปต่อแล้ว","text_en":"I will move on now.","next":10,"love":10}
         ],
         "background": "loka"
     },
