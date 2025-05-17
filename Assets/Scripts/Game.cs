@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Game : Singleton<Game>
@@ -8,6 +9,8 @@ public class Game : Singleton<Game>
     [SerializeField]
     private bool enableConsole;
 
+    private Database database;
+    private InventoryController inventory;
     private DevCommand devCommand;
 
     protected override void Awake()
@@ -19,7 +22,11 @@ public class Game : Singleton<Game>
 
     void Init()
     {
-        devCommand = new();
+        database = new();
+        inventory = new(database);
+        inventory.Setup(Array.Empty<int>());
+
+        devCommand = new(inventory);
         if (enableConsole) Instantiate(devConsole);
     }
 }
