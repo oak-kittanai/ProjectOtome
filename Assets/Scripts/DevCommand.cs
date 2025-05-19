@@ -33,5 +33,22 @@ public class DevCommand
         {
             inventory.RemoveItem(id);
         });
+
+        DebugLogConsole.AddCommand("add_random_item", "สุ่ม item", () =>
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                int id = Random.Range(0, 15);
+                inventory.AddItem(id);
+            }
+        });
+
+        DebugLogConsole.AddCommand("show_inventory", "แสดง inventory", () =>
+        {
+            UIManager.Instance.ShowInventory(new()
+            {
+                Items = inventory.GetItems()
+            });
+        });
     }
 }

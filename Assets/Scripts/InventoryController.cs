@@ -30,9 +30,10 @@ public class InventoryController
     {
         var item = GetItemById(id);
         if (item == null) return;
+        if (item.Type != ItemType.Consumable && items.Contains(item)) return; // can stack only consumable item
 
         items.Add(item);
-        MessagingCenter.Send(this, MessageOnUpdateItem);
+        MessagingCenter.Send(this, MessageOnUpdateItem, items);
     }
 
     public void RemoveItem(int id)
@@ -41,7 +42,7 @@ public class InventoryController
         if (item == null || !items.Contains(item)) return;
 
         items.Remove(item);
-        MessagingCenter.Send(this, MessageOnUpdateItem);
+        MessagingCenter.Send(this, MessageOnUpdateItem, items);
     }
 
     private Item GetItemById(int id)
@@ -71,26 +72,30 @@ public class Item
 {
     public int Id;
     public string Name;
+    public string Description;
     public ItemType Type;
 
-    public Item(int id, string name, ItemType type)
+    public Item(int id, string name, string description, ItemType type)
     {
         Id = id;
         Name = name;
+        Description = description;
         Type = type;
     }
 
-    public Item(int id, string name, string type)
+    public Item(int id, string name, string description, string type)
     {
         Id = id;
         Name = name;
+        Description = description;
         Type = (ItemType)System.Enum.Parse(typeof(ItemType), type);
     }
 
-    public Item(int id, string name, int type)
+    public Item(int id, string name, string description, int type)
     {
         Id = id;
         Name = name;
+        Description = description;
         Type = (ItemType)type;
     }
 }

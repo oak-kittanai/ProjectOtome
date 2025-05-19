@@ -6,26 +6,47 @@ public static class Utility
 {
     private static MonoBehaviour monoBehaviour;
 
+    private const string PREFIX_ITEM = "items";
     private const string PREFIX_DIALOGUE = "dialogues";
+    private const string PREFIX_UI = "ui";
 
     public static void Setup(MonoBehaviour monoParam)
     {
         monoBehaviour = monoParam;
     }
 
-    public static void LoadResource<T>(string path, Action<T> onLoad) where T : UnityEngine.Object
+    public static void LoadResource<T>(string prefix, string path, Action<T> onLoad) where T : UnityEngine.Object
     {
         monoBehaviour.StartCoroutine(LoadCoroutine());
         IEnumerator LoadCoroutine()
         {
-            ResourceRequest request = Resources.LoadAsync("glass");
+            ResourceRequest request = Resources.LoadAsync<T>(prefix + "/" + path);
             yield return request;
+            if (request.asset == null)
+            {
+                request = Resources.LoadAsync(prefix + "/default");
+                yield return request;
+            }
             onLoad?.Invoke(request.asset as T);
         }
     }
 
     public static void LoadDialogueData(string id, Action<TextAsset> onLoad)
     {
-        LoadResource($"{PREFIX_DIALOGUE}{id}.json", onLoad);
+        LoadResource(PREFIX_DIALOGUE, id, onLoad);
+    }
+
+    public static void LoadItemSprite(int id, Action<Sprite> onLoad)
+    {
+        LoadResource<Texture2D>(PREFIX_ITEM, $"{id}", (texture) =>
+        {
+            var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            onLoad?.Invoke(sprite);
+        });
+    }
+
+    public static void LoadUI(string path, Action<GameObject> onLoad)
+    {
+        LoadResource(PREFIX_UI, path, onLoad);
     }
 }
