@@ -17,7 +17,8 @@ public class DevCommand
                 Debug.LogWarning("invalid dialogue id");
                 return;
             }
-            // OpenDialogue(id);
+
+            DialogueSystem.Instance.ForcePlayDialogue(id);
             Debug.Log("open dialogue " + id);
         });
     }

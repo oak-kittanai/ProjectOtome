@@ -5,14 +5,14 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class DialogueSystem : MonoBehaviour
+
+public class DialogueSystem : Singleton<DialogueSystem>
 {
     [Header("Pre & Post")]
-    public bool isEnded = false;
     public Image backgroundImage;
     public Image mainImage;
     public Image otherImage;
-    public TextMeshProUGUI characterNameText;
+    public TextMeshProUGUI characterNameText; // make sure show only talk or show 2
     public TextMeshProUGUI dialogueText;
     public GameObject choicePanel, dialoguePanel;
     public GameObject choiceButtonPrefab;
@@ -20,8 +20,10 @@ public class DialogueSystem : MonoBehaviour
 
     private JSONArray storyArray;
     private JSONArray choiceArray;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     private bool isTyping = false;
+    private bool isSkipAble;
+    public bool hasChoice;
     private string currentFullText = "";
     private Coroutine typingCoroutine;
 
@@ -45,25 +47,25 @@ public class DialogueSystem : MonoBehaviour
 
     void Start()
     {
-        //province = PlayerPrefs.GetString(Const.PROVINCE, Const.BANGKOK);
+        /*//province = PlayerPrefs.GetString(Const.PROVINCE, Const.BANGKOK);
         dialoguePanel.SetActive(true);
         choicePanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         typingSound = Resources.Load<AudioClip>("sounds/typing");
         LoadFont();
 
-        /*if (Game.Instance.currentLanguage == "TH")
+        if (Game.Instance.currentLanguage == "TH")
         {
             changeLanguage = true;
         }
         else
         {
             changeLanguage = false;
-        }*/
+        }
 
         CheckLauguage(changeLanguage);
         LoadEventDialogueData();
-        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));*/
     }
 
     void LoadFont()
@@ -102,19 +104,15 @@ public class DialogueSystem : MonoBehaviour
     void LoadEventDialogueData()
     {
         TextAsset json;
-        if (!isEnded)
-        {
-            json = Resources.Load<TextAsset>("data/th/" + eventDialogueData);
-        }
-        else
-        {
-            json = Resources.Load<TextAsset>("data/th/pre/" + eventDialogueData);
-        }
+        json = Resources.Load<TextAsset>("dialogues/" + eventDialogueData);
 
-        var root = JSON.Parse(json.text)[0]; // assume first node
+        //var root = JSON.Parse(json.text)[0];
+        var rootArray = JSON.Parse(json.text).AsArray;
 
-        storyArray = root["levels"][0]["story"].AsArray;
-        choiceArray = root["stat"][0]["choices"].AsArray;
+        storyArray = rootArray;
+
+        /*storyArray = root["levels"][0]["story"].AsArray;
+        choiceArray = root["stat"][0]["choices"].AsArray;*/
     }
 
     public void SkipToChoice()
@@ -128,45 +126,69 @@ public class DialogueSystem : MonoBehaviour
 
         if (index >= storyArray.Count)
         {
-            Debug.Log("Dialogue ended. Showing choices...");
-            ShowChoices();
+            Debug.Log("Dialogue ended.");
             yield break;
         }
 
         var node = storyArray[index];
+        Debug.Log(node);
 
-        string character = node["character"];
-        string text = node["text"];
+        string mainSpeaker = node["speaker"];
+        string currentSpeaker = mainSpeaker;
 
-        if (changeLanguage)
-        {
-            character = node["character_th"];
-            text = node["text_th"];
-        }
+        string speakerEmotional = node["emotional"];
+
+        string leftCharacter = node["left"];
+        string rightCharacter = node["right"];
+
+        string background = node["background"];
+
+        string text = node["text_en"];
+
+        text = changeLanguage ? node["text_th"] : node["text_en"];
         currentFullText = text;
 
-        string bgPath = null; // Set เป็นพื้นหลังที่เป็นพื้นหลังใส
-        if (isBackgroundActive)
-        {
-            bgPath = node["background"];
-        }
-        
-        string mainPath = node["main"];
-        string otherPath = node["other"];
-        
-        backgroundImage.sprite = LoadSpriteFromPath(bgPath); // Need to fix path
-        mainImage.sprite = LoadSpriteFromPath(mainPath); // Need to fix path
-        otherImage.sprite = LoadSpriteFromPath(otherPath); // Need to fix path
+        isSkipAble = true;
 
-        characterNameText.text = character;
+        var choiceNode = node["choice"];
+        if (choiceNode != null && choiceNode is JSONArray)
+        {
+            choiceArray = choiceNode.AsArray;
+            ShowChoices();
+            isSkipAble = false;
+            hasChoice = true;
+        }
+        else
+        {
+            isSkipAble = true;
+            hasChoice = false;
+        }
+
+        /*string bgPath = ($"Resources / backgrounds / {background}");
+        string mainSpeakerEmotional = ($"Resources / characters / {mainSpeaker} / {speakerEmotional}");
+        string leftCharacterSprite = ($"Resources / characters / {leftCharacter} / listener");
+        string rightCharacterSprite = ($"Resources / characters / {rightCharacter} / listener");
+
+        mainImage.sprite = mainSpeaker == leftCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(leftCharacterSprite);
+        otherImage.sprite = mainSpeaker == rightCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(rightCharacterSprite);
+
+
+        thFont = Resources.Load<TMP_FontAsset>("Fonts/Kanit/Kanit-Regular");
+
+        backgroundImage.sprite = isBackgroundActive ? LoadSpriteFromPath(bgPath) : null;*/
+
+        //characterNameText.text = currentSpeaker; // ขึ้นชื่อของคนที่พูดอยู่ !!!รอแก้
         dialogueText.text = "";
 
-        foreach (char c in text)
+        if (text != null)
         {
-            dialogueText.text += c;
-            if (typingSound != null)
-                audioSource.PlayOneShot(typingSound);
-            yield return new WaitForSeconds(0.05f);
+            foreach (char c in text)
+            {
+                dialogueText.text += c;
+                if (typingSound != null)
+                    audioSource.PlayOneShot (typingSound);
+                yield return new WaitForSeconds(0.05f);
+            }
         }
 
         isTyping = false;
@@ -182,18 +204,26 @@ public class DialogueSystem : MonoBehaviour
         foreach (JSONNode choice in choiceArray)
         {
             GameObject btnObj = Instantiate(choiceButtonPrefab, choiceContainer);
-            btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice["text"];
-            if (changeLanguage)
-            {
-                btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice["text_th"];
-            }
+            btnObj.GetComponentInChildren<TextMeshProUGUI>().text = changeLanguage ? choice["text_th"] : choice["text_en"];
 
             btnObj.GetComponent<Button>().onClick.AddListener(() => // Choice select impact
             {
                 ApplyImpact(choice["impact"].AsObject);
-                /*choicePanel.SetActive(false);
-                Debug.Log("Choice selected and stats updated.");
 
+                if (choice["next"] != null)
+                {
+
+                    string nextDialogueIDString = choice["next"].ToString();
+                    int nextDialogueID = int.Parse(nextDialogueIDString);
+                    typingCoroutine = StartCoroutine(PlayDialogue(nextDialogueID));
+                    btnObj.GetComponent<Button>().onClick.RemoveAllListeners();
+
+                    hasChoice = false;
+                }
+                choicePanel.SetActive(false);
+                dialoguePanel.SetActive(true);
+                Debug.Log("Choice selected and stats updated");
+                /*
                 GameObject controller = GameObject.FindWithTag("GameController");*/
             });
         }
@@ -218,19 +248,9 @@ public class DialogueSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space) && isSkipAble || Input.GetMouseButtonDown(0) && isSkipAble)
         {
-            if (isTyping)
-            {
-                StopCoroutine(typingCoroutine);
-                dialogueText.text = currentFullText;
-                isTyping = false;
-            }
-            else
-            {
-                currentIndex++;
-                typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
-            }
+            NextPhase();
         }
     }
 
@@ -244,8 +264,28 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            currentIndex++;
-            typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+            if (!hasChoice)
+            {
+                currentIndex++;
+                typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+            }
         }
+    }
+
+    public void ForcePlayDialogue(string name)
+    {
+        /*eventDialogueData = name;
+        LoadEventDialogueData();
+        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));*/
+
+        dialoguePanel.SetActive(true);
+        choicePanel.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        typingSound = Resources.Load<AudioClip>("sounds/typing");
+        LoadFont();
+
+        CheckLauguage(changeLanguage);
+        LoadEventDialogueData();
+        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
     }
 }
