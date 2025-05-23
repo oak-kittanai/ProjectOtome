@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 
 public class DialogueSystem : Singleton<DialogueSystem>
 {

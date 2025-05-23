@@ -21,5 +21,11 @@ public class DevCommand
             DialogueSystem.Instance.ForcePlayDialogue(id);
             Debug.Log("open dialogue " + id);
         });
+
+        DebugLogConsole.AddCommand("QTE", "แสดง QTE ทันที", () =>
+        {
+            BattleBaseManager.Instance.ForceQTEPlay();
+            Debug.Log("open QTE ");
+        });
     }
 }

@@ -1173,7 +1173,48 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skeleton_02_White_Die_0: -6379601364602372377
+      Skeleton_02_White_Die_1: -2536644581886344738
+      Skeleton_02_White_Die_10: -1056517736661267415
+      Skeleton_02_White_Die_11: 7759279936661046216
+      Skeleton_02_White_Die_12: -5073401641779662876
+      Skeleton_02_White_Die_13: -1825304416408011867
+      Skeleton_02_White_Die_14: -1971174474686827962
+      Skeleton_02_White_Die_15: 5668039763164798995
+      Skeleton_02_White_Die_16: -3988753853276391918
+      Skeleton_02_White_Die_17: -3723719250156858779
+      Skeleton_02_White_Die_18: 1717821521023801958
+      Skeleton_02_White_Die_19: -488923731170007303
+      Skeleton_02_White_Die_2: 2308724069310554945
+      Skeleton_02_White_Die_20: 331330854001261483
+      Skeleton_02_White_Die_21: -6012459843437720034
+      Skeleton_02_White_Die_22: -8068262000514788791
+      Skeleton_02_White_Die_23: 2772373008937149082
+      Skeleton_02_White_Die_24: 5321923412119072981
+      Skeleton_02_White_Die_25: 2402140256908266582
+      Skeleton_02_White_Die_26: 293953604317557077
+      Skeleton_02_White_Die_27: 8692718498231810633
+      Skeleton_02_White_Die_28: 6059299408943388008
+      Skeleton_02_White_Die_29: 5719320995469739767
+      Skeleton_02_White_Die_3: 1797017119821284570
+      Skeleton_02_White_Die_30: 8805333960430896994
+      Skeleton_02_White_Die_31: 8254212034387915529
+      Skeleton_02_White_Die_32: -8845433535874943974
+      Skeleton_02_White_Die_33: 23143807925393502
+      Skeleton_02_White_Die_34: -1393894643079025622
+      Skeleton_02_White_Die_35: -6220185052998122581
+      Skeleton_02_White_Die_36: -7802191974645561470
+      Skeleton_02_White_Die_37: 6567689965975453530
+      Skeleton_02_White_Die_38: -4954708807444484761
+      Skeleton_02_White_Die_39: -5329193748889495753
+      Skeleton_02_White_Die_4: -2606642537447633891
+      Skeleton_02_White_Die_40: -214683089172443556
+      Skeleton_02_White_Die_5: -1247494768265934602
+      Skeleton_02_White_Die_6: -954611413524934618
+      Skeleton_02_White_Die_7: -2171501579738310346
+      Skeleton_02_White_Die_8: -5149482400700098842
+      Skeleton_02_White_Die_9: -3147031536643680588
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
