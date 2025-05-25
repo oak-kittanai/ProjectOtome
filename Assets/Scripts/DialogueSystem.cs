@@ -5,14 +5,13 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class DialogueSystem : MonoBehaviour
+public class DialogueSystem : Singleton<DialogueSystem>
 {
     [Header("Pre & Post")]
-    public bool isEnded = false;
     public Image backgroundImage;
     public Image mainImage;
     public Image otherImage;
-    public TextMeshProUGUI characterNameText;
+    public TextMeshProUGUI characterNameText; // make sure show only talk or show 2
     public TextMeshProUGUI dialogueText;
     public GameObject choicePanel, dialoguePanel;
     public GameObject choiceButtonPrefab;
@@ -20,64 +19,59 @@ public class DialogueSystem : MonoBehaviour
 
     private JSONArray storyArray;
     private JSONArray choiceArray;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     private bool isTyping = false;
+    private bool isSkipAble;
+    public bool hasChoice;
     private string currentFullText = "";
     private Coroutine typingCoroutine;
 
     private AudioSource audioSource;
     private AudioClip typingSound;
 
-    [Header("Province")]
-    public string province;
-
-    [Header("Language Setting")]
-    private TMP_FontAsset enFont; // En Fonts
-    private TMP_FontAsset thFont; // Th Fonts
+    // Dialogue Data
+    public string eventDialogueData;
 
     public bool changeLanguage; // true = Th || false = En
     private bool isEpisodeLoading = false;
 
+    [Header("Setting")]
+
+    public bool isBackgroundActive; // true = Background || false = No Background
+    public bool isMiniDialogue; // true = MiniDialogue || false = Dialogue
+
     void Start()
     {
-        //province = PlayerPrefs.GetString(Const.PROVINCE, Const.BANGKOK);
+        /*//province = PlayerPrefs.GetString(Const.PROVINCE, Const.BANGKOK);
         dialoguePanel.SetActive(true);
         choicePanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         typingSound = Resources.Load<AudioClip>("sounds/typing");
         LoadFont();
 
-        /*if (Game.Instance.currentLanguage == "TH")
+        if (Game.Instance.currentLanguage == "TH")
         {
             changeLanguage = true;
         }
         else
         {
             changeLanguage = false;
-        }*/
+        }
 
         CheckLauguage(changeLanguage);
-        LoadLevelData();
-        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
-    }
-
-    void LoadFont()
-    {
-        enFont = Resources.Load<TMP_FontAsset>("Fonts/");
-        thFont = Resources.Load<TMP_FontAsset>("Fonts/");
+        LoadEventDialogueData();
+        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));*/
     }
 
     void CheckLauguage(bool getJsonLanguageBool)
     {
         if (getJsonLanguageBool)
         {
-            dialogueText.font = thFont;
-            characterNameText.font = thFont;
+
         }
         else
         {
-            dialogueText.font = enFont;
-            characterNameText.font = enFont;
+
         }
     }
 
@@ -94,22 +88,28 @@ public class DialogueSystem : MonoBehaviour
         return loaded;
     }
 
-    void LoadLevelData()
+    void LoadEventDialogueData(int rootindex)
     {
         TextAsset json;
-        if (!isEnded)
+        json = Resources.Load<TextAsset>("dialogues/" + eventDialogueData);
+
+        var rootArray = JSON.Parse(json.text).AsArray;
+
+        int targetID = rootindex;
+
+        foreach (JSONNode node in rootArray)
         {
-            json = Resources.Load<TextAsset>("data/th/" + province);
-        }
-        else
-        {
-            json = Resources.Load<TextAsset>("data/th/pre/" + province);
+            if (node["id"].AsInt == targetID) // need to fix
+            {
+                storyArray = node["dialogues"].AsArray;
+                Debug.Log("Current ID is : " + node["id"]);
+                break;
+            }
+
+            //if (node["id"].AsInt >= )
         }
 
-        var root = JSON.Parse(json.text)[0]; // assume first node
-
-        storyArray = root["levels"][0]["story"].AsArray;
-        choiceArray = root["stat"][0]["choices"].AsArray;
+        Debug.Log(storyArray);
     }
 
     public void SkipToChoice()
@@ -119,47 +119,88 @@ public class DialogueSystem : MonoBehaviour
 
     IEnumerator PlayDialogue(int index)
     {
+        LoadDataCharacte(index);
+
         isTyping = true;
 
         if (index >= storyArray.Count)
         {
-            Debug.Log("Dialogue ended. Showing choices...");
-            ShowChoices();
+            Debug.Log("Dialogue ended.");
+            DialogueEnd();
             yield break;
         }
 
+        /*if (index >= storyArray.Count || index < 0)
+        {
+            Debug.LogError($"Invalid dialogue index: {index}. storyArray count: {storyArray.Count}");
+            yield break;
+        }*/
+
         var node = storyArray[index];
 
-        string character = node["character"];
-        string text = node["text"];
+        string mainSpeaker = node["speaker"];
+        string currentSpeaker = mainSpeaker;
 
-        if (changeLanguage)
-        {
-            character = node["character_th"];
-            text = node["text_th"];
-        }
+        string text = node["text_en"];
+
+        text = changeLanguage ? node["text_th"] : node["text_en"];
         currentFullText = text;
 
-        string bgPath = node["background"];
-        string mainPath = node["main"];
-        string otherPath = node["other"];
+        Debug.Log(text);
 
-        backgroundImage.sprite = LoadSpriteFromPath(bgPath);
-        mainImage.sprite = LoadSpriteFromPath(mainPath);
-        otherImage.sprite = LoadSpriteFromPath(otherPath);
+        isSkipAble = true;
 
-        characterNameText.text = character;
+        var choiceNode = node["choice"];
+        if (choiceNode != null && choiceNode is JSONArray)
+        {
+            choiceArray = choiceNode.AsArray;
+            ShowChoices();
+            isSkipAble = false;
+            hasChoice = true;
+        }
+        else
+        {
+            isSkipAble = true;
+            hasChoice = false;
+        }
+
+        characterNameText.text = currentSpeaker; // ขึ้นชื่อของคนที่พูดอยู่ !!!รอแก้
         dialogueText.text = "";
 
-        foreach (char c in text)
+        if (text != null)
         {
-            dialogueText.text += c;
-            if (typingSound != null)
-                audioSource.PlayOneShot(typingSound);
-            yield return new WaitForSeconds(0.05f);
+            foreach (char c in text)
+            {
+                dialogueText.text += c;
+                if (typingSound != null)
+                    audioSource.PlayOneShot(typingSound);
+                yield return new WaitForSeconds(0.05f);
+            }
         }
 
         isTyping = false;
+    }
+
+    private void LoadDataCharacte(int index)
+    {
+        var node = storyArray[index];
+
+        string speakerEmotional = node["emotional"];
+
+        string leftCharacter = node["left"];
+        string rightCharacter = node["right"];
+
+        string background = node["background"];
+
+        /*string bgPath = ($"Resources / backgrounds / {background}");
+        string mainSpeakerEmotional = ($"Resources / characters / {mainSpeaker} / {speakerEmotional}");
+        string leftCharacterSprite = ($"Resources / characters / {leftCharacter} / listener");
+        string rightCharacterSprite = ($"Resources / characters / {rightCharacter} / listener");
+
+        mainImage.sprite = mainSpeaker == leftCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(leftCharacterSprite);
+        otherImage.sprite = mainSpeaker == rightCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(rightCharacterSprite);
+
+        backgroundImage.sprite = isBackgroundActive ? LoadSpriteFromPath(bgPath) : null;*/
     }
 
     void ShowChoices()
@@ -172,69 +213,50 @@ public class DialogueSystem : MonoBehaviour
         foreach (JSONNode choice in choiceArray)
         {
             GameObject btnObj = Instantiate(choiceButtonPrefab, choiceContainer);
-            btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice["text"];
-            if (changeLanguage)
-            {
-                btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice["text_th"];
-            }
-
+            btnObj.GetComponentInChildren<TextMeshProUGUI>().text = changeLanguage ? choice["text_th"] : choice["text_en"];
             btnObj.GetComponent<Button>().onClick.AddListener(() =>
             {
                 ApplyImpact(choice["impact"].AsObject);
-                choicePanel.SetActive(false);
-                Debug.Log("Choice selected and stats updated.");
 
-                GameObject controller = GameObject.FindWithTag("GameController");
-                /*if (controller != null && controller.GetComponent<LoadSceneManager>() != null)
+                if (choice["next"] != null)
                 {
-                    if (isEnded)
-                    {
-                        controller.GetComponent<LoadSceneManager>().LoadScene("HallofFame");
-                    }
-                    else
-                    {
-                        controller.GetComponent<LoadSceneManager>().LoadScene("Photo");
-                    }
+                    int nextDialogueID = choice["next"].AsInt;
+
+                    LoadEventDialogueData(nextDialogueID);
+                    currentIndex = 0;
+                    typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+
+                    hasChoice = false;
+                    btnObj.GetComponent<Button>().onClick.RemoveAllListeners();
                 }
-                else
-                {
-                    Debug.LogWarning("LoadSceneManager not found on GameController.");
-                }*/
+
+                choicePanel.SetActive(false);
+                dialoguePanel.SetActive(true);
+                Debug.Log("Choice selected and stats updated");
             });
         }
     }
 
     void ApplyImpact(JSONNode impactNode)
     {
-        foreach (KeyValuePair<string, JSONNode> stat in impactNode.AsObject)
+        foreach (KeyValuePair<string, JSONNode> stat in impactNode.AsObject) // อัพเดตค่าสถานะ ต่างๆ ต้องแก้เพิ่ม
         {
-            string key = stat.Key;
-            int current = PlayerPrefs.GetInt(key, 0);
-            int delta = stat.Value.AsInt;
-            int updated = current + delta;
 
-            PlayerPrefs.SetInt(key, updated);
-            Debug.Log($"📊 Updated {key}: {current} → {updated}");
         }
 
         PlayerPrefs.Save();
     }
 
+    public void DialogueEnd()
+    {
+
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isSkipAble || Input.GetMouseButtonDown(0) && isSkipAble)
         {
-            if (isTyping)
-            {
-                StopCoroutine(typingCoroutine);
-                dialogueText.text = currentFullText;
-                isTyping = false;
-            }
-            else
-            {
-                currentIndex++;
-                typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
-            }
+            NextPhase();
         }
     }
 
@@ -248,8 +270,101 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            currentIndex++;
-            typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+            if (!hasChoice)
+            {
+                currentIndex++;
+                typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+            }
+        }
+    }
+
+    public GameObject dialogueObject;
+    public Transform uiCanvaContainer;
+
+    public void ForcePlayDialogue(string name)
+    {
+        dialogueObject = Resources.Load<GameObject>("prefabs/DialoguePrefab");
+        if (dialogueObject == null)
+        {
+            Debug.LogError("DialoguePrefab not found in Resources.");
+            return;
+        }
+        Canvas canvasUI = FindFirstObjectByType<Canvas>();
+        if (canvasUI == null)
+        {
+            Debug.LogError("No Canvas found in scene.");
+            return;
+        }
+
+        GameObject dialogueObj = Instantiate(dialogueObject, canvasUI.transform);
+        LoadDialogueAssets();
+
+        dialoguePanel.SetActive(true);
+        choicePanel.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        typingSound = Resources.Load<AudioClip>("sounds/typing");
+
+        CheckLauguage(changeLanguage);
+        LoadEventDialogueData(0);
+        typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+    }
+
+    public void LoadDialogueAssets()
+    {
+        mainImage = dialogueObject.transform.Find("Main").GetComponent<Image>();
+        if (mainImage == null)
+        {
+            Debug.LogError("Main not found in dialoguePrefab.");
+            return;
+        }
+        otherImage = dialogueObject.transform.Find("Other").GetComponent<Image>();
+        if (otherImage == null)
+        {
+            Debug.LogError("Other not found in dialoguePrefab.");
+            return;
+        }
+
+        characterNameText = dialogueObject.transform.Find("CharacterName").GetComponent<TextMeshProUGUI>();
+        if (characterNameText == null)
+        {
+            Debug.Log("CharacterName not found in dialoguePrefab.");
+            return;
+        }
+        dialogueText = dialogueObject.transform.Find("DialogueText").GetComponent<TextMeshProUGUI>();
+        if (dialogueText == null)
+        {
+            Debug.LogError("dialogueText not found in dialoguePrefab.");
+            return;
+        }
+
+        Transform choicePanelTransform = dialogueObject.transform.Find("ChoicePanel");
+        if (choicePanelTransform == null)
+        {
+            Debug.LogError("ChoicePanel not found in dialoguePrefab.");
+            return;
+        }
+        choicePanel = choicePanelTransform.gameObject;
+
+        Transform dialoguePanelTransform = dialogueObject.transform.Find("Panel");
+        if (dialoguePanelTransform == null)
+        {
+            Debug.LogError("Panel not found in dialoguePrefab.");
+            return;
+        }
+        dialoguePanel = dialoguePanelTransform.gameObject;
+
+        choiceButtonPrefab = Resources.Load<GameObject>("prefabs/Choice");
+        if (choiceButtonPrefab == null)
+        {
+            Debug.LogError("choiceButtonPrefab not found in Resources.");
+            return;
+        }
+
+        choiceContainer = dialogueObject.transform.Find("ChoiceContainer").GetComponent<Transform>();
+        if (choiceContainer == null)
+        {
+            Debug.LogError("choiceContainer not found in dialoguePrefab.");
+            return;
         }
     }
 }

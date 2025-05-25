@@ -20,9 +20,15 @@ public class DevCommand
                 Debug.LogWarning("invalid dialogue id");
                 return;
             }
-            // OpenDialogue(id);
+
+            DialogueSystem.Instance.ForcePlayDialogue(id);
             Debug.Log("open dialogue " + id);
         });
+
+        DebugLogConsole.AddCommand("QTE", "แสดง QTE ทันที", () =>
+        {
+            BattleBaseManager.Instance.ForceQTEPlay();
+            Debug.Log("open QTE ");
 
         DebugLogConsole.AddCommand<int>("add_item", "เพิ่ม item", (id) =>
         {
