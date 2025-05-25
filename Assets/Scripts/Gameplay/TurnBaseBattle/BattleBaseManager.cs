@@ -9,6 +9,8 @@ public class BattleBaseManager : Singleton<BattleBaseManager>
 
     public void ForceQTEPlay() // Fix the scale
     {
+        GameObject canvasGO = GameObject.Find("Canvas");
+
         QTEObject = Resources.Load<GameObject>("prefabs/QTEvent");
         if (QTEObject == null)
         {
@@ -16,7 +18,14 @@ public class BattleBaseManager : Singleton<BattleBaseManager>
             return;
         }
 
-        GameObject qteObj = Instantiate(QTEObject, uiContainer);
+        Canvas canvasUI = FindFirstObjectByType<Canvas>();
+        if (canvasUI == null)
+        {
+            Debug.LogError("No Canvas found in scene.");
+            return;
+        }
+
+        GameObject qteObj = Instantiate(QTEObject, canvasUI.transform);
         RectTransform rect = qteObj.GetComponent<RectTransform>();
 
         // ChatGPT
@@ -31,10 +40,5 @@ public class BattleBaseManager : Singleton<BattleBaseManager>
             Debug.LogError("Pointer not found in QTE prefab.");
             return;
         }
-    }
-
-    private void Start()
-    {
-        ForceQTEPlay();
     }
 }

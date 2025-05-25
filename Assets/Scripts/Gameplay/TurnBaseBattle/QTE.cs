@@ -30,6 +30,7 @@ namespace TurnBase
             }
             else
             {
+                ForceEndQTE();
                 Debug.Log("Reached the end");
                 pointerTransform.position = new Vector3(endPoint.position.x, endPoint.position.y, endPoint.position.z);
             }

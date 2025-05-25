@@ -67,11 +67,11 @@ public class DialogueSystem : Singleton<DialogueSystem>
     {
         if (getJsonLanguageBool)
         {
-            
+
         }
         else
         {
-            
+
         }
     }
 
@@ -254,7 +254,7 @@ public class DialogueSystem : Singleton<DialogueSystem>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isSkipAble|| Input.GetMouseButtonDown(0) && isSkipAble)
+        if (Input.GetKeyDown(KeyCode.Space) && isSkipAble || Input.GetMouseButtonDown(0) && isSkipAble)
         {
             NextPhase();
         }
@@ -278,8 +278,27 @@ public class DialogueSystem : Singleton<DialogueSystem>
         }
     }
 
+    public GameObject dialogueObject;
+    public Transform uiCanvaContainer;
+
     public void ForcePlayDialogue(string name)
     {
+        dialogueObject = Resources.Load<GameObject>("prefabs/DialoguePrefab");
+        if (dialogueObject == null)
+        {
+            Debug.LogError("DialoguePrefab not found in Resources.");
+            return;
+        }
+        Canvas canvasUI = FindFirstObjectByType<Canvas>();
+        if (canvasUI == null)
+        {
+            Debug.LogError("No Canvas found in scene.");
+            return;
+        }
+
+        GameObject dialogueObj = Instantiate(dialogueObject, canvasUI.transform);
+        LoadDialogueAssets();
+
         dialoguePanel.SetActive(true);
         choicePanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
@@ -288,5 +307,64 @@ public class DialogueSystem : Singleton<DialogueSystem>
         CheckLauguage(changeLanguage);
         LoadEventDialogueData(0);
         typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
+    }
+
+    public void LoadDialogueAssets()
+    {
+        mainImage = dialogueObject.transform.Find("Main").GetComponent<Image>();
+        if (mainImage == null)
+        {
+            Debug.LogError("Main not found in dialoguePrefab.");
+            return;
+        }
+        otherImage = dialogueObject.transform.Find("Other").GetComponent<Image>();
+        if (otherImage == null)
+        {
+            Debug.LogError("Other not found in dialoguePrefab.");
+            return;
+        }
+
+        characterNameText = dialogueObject.transform.Find("CharacterName").GetComponent<TextMeshProUGUI>();
+        if (characterNameText == null)
+        {
+            Debug.Log("CharacterName not found in dialoguePrefab.");
+            return;
+        }
+        dialogueText = dialogueObject.transform.Find("DialogueText").GetComponent<TextMeshProUGUI>();
+        if (dialogueText == null)
+        {
+            Debug.LogError("dialogueText not found in dialoguePrefab.");
+            return;
+        }
+
+        Transform choicePanelTransform = dialogueObject.transform.Find("ChoicePanel");
+        if (choicePanelTransform == null)
+        {
+            Debug.LogError("ChoicePanel not found in dialoguePrefab.");
+            return;
+        }
+        choicePanel = choicePanelTransform.gameObject;
+
+        Transform dialoguePanelTransform = dialogueObject.transform.Find("Panel");
+        if (dialoguePanelTransform == null)
+        {
+            Debug.LogError("Panel not found in dialoguePrefab.");
+            return;
+        }
+        dialoguePanel = dialoguePanelTransform.gameObject;
+
+        choiceButtonPrefab = Resources.Load<GameObject>("prefabs/Choice");
+        if (choiceButtonPrefab == null)
+        {
+            Debug.LogError("choiceButtonPrefab not found in Resources.");
+            return;
+        }
+
+        choiceContainer = dialogueObject.transform.Find("ChoiceContainer").GetComponent<Transform>();
+        if (choiceContainer == null)
+        {
+            Debug.LogError("choiceContainer not found in dialoguePrefab.");
+            return;
+        }
     }
 }
