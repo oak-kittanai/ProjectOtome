@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utility
 {
     private static MonoBehaviour monoBehaviour;
+    private static Dictionary<string, UnityEngine.Object> resourceCache = new();
 
     private const string PREFIX_ITEM = "items";
     private const string PREFIX_DIALOGUE = "dialogues";
@@ -20,6 +22,11 @@ public static class Utility
         monoBehaviour.StartCoroutine(LoadCoroutine());
         IEnumerator LoadCoroutine()
         {
+            if (resourceCache.TryGetValue(prefix + "/" + path, out UnityEngine.Object value))
+            {
+                onLoad?.Invoke(value as T);
+                yield break;
+            }
             ResourceRequest request = Resources.LoadAsync<T>(prefix + "/" + path);
             yield return request;
             if (request.asset == null)
@@ -27,6 +34,7 @@ public static class Utility
                 request = Resources.LoadAsync(prefix + "/default");
                 yield return request;
             }
+            resourceCache[prefix + "/" + path] = request.asset;
             onLoad?.Invoke(request.asset as T);
         }
     }
