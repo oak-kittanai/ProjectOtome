@@ -15,6 +15,9 @@ public class Game : Singleton<Game>
     [SerializeField]
     private bool enableConsole;
 
+    private SaveSystem saveSystem;
+    public SaveSystem GetSaveSystem() => saveSystem;
+
     private Database database;
     public Database GetDatabase() => database;
     
@@ -35,6 +38,7 @@ public class Game : Singleton<Game>
         if (uiManager != null) Instantiate(uiManager);
         if (sceneLoader != null) Instantiate(sceneLoader);
 
+        saveSystem = new();
         database = new();
         inventory = new(database);
         inventory.Setup(Array.Empty<int>());

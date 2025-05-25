@@ -57,4 +57,14 @@ public static class Utility
     {
         LoadResource(PREFIX_UI, path, onLoad);
     }
+
+    public static void WaitForSeconds(float seconds, Action onComplete)
+    {
+        monoBehaviour.StartCoroutine(WaitCoroutine());
+        IEnumerator WaitCoroutine()
+        {
+            yield return new WaitForSeconds(seconds);
+            onComplete?.Invoke();
+        }
+    }
 }
