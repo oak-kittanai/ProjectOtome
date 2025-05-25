@@ -1,12 +1,23 @@
+using System;
 using UnityEngine;
 
 public class Game : Singleton<Game>
 {
+    [Header("Singleton")]
+    [SerializeField]
+    private UIManager uiManager;
+
     [Header("Console")]
     [SerializeField]
     private GameObject devConsole;
     [SerializeField]
     private bool enableConsole;
+
+    private Database database;
+    public Database GetDatabase() => database;
+    
+    private InventoryController inventory;
+    public InventoryController GetInventory() => inventory;
 
     private DevCommand devCommand;
 
@@ -19,7 +30,13 @@ public class Game : Singleton<Game>
 
     void Init()
     {
-        devCommand = new();
+        Instantiate(uiManager);
+
+        database = new();
+        inventory = new(database);
+        inventory.Setup(Array.Empty<int>());
+
+        devCommand = new(inventory);
         if (enableConsole) Instantiate(devConsole);
     }
 }
