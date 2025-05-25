@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,6 +33,16 @@ public class UIManager : Singleton<UIManager>
         {
             Setup();
         }
+    }
+
+    public void ShowMainMenu(UIMainMenu.Param param)
+    {
+        Utility.LoadUI("MainMenu", obj =>
+        {
+            if (obj == null) return;
+            var mainMenu = Instantiate(obj, canvas.transform).GetComponent<UIMainMenu>();
+            if (mainMenu != null) mainMenu.Setup(param);
+        });
     }
 
     public void ShowInventory(UIInventory.Param param)
