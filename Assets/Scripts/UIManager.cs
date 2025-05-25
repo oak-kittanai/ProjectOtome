@@ -44,6 +44,16 @@ public class UIManager : Singleton<UIManager>
         });
     }
 
+    public void ShowDialogue(DialogueSystem.Param param)
+    {
+        Utility.LoadUI("Dialogue", obj =>
+        {
+            if (obj == null) return;
+            var dialogue = Instantiate(obj, canvas.transform).GetComponent<DialogueSystem>();
+            if (dialogue != null) dialogue.Setup(param);
+        });
+    }
+
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;

@@ -21,7 +21,10 @@ public class DevCommand
                 return;
             }
 
-            DialogueSystem.Instance.ForcePlayDialogue(id);
+            UIManager.Instance.ShowDialogue(new()
+            {
+                DialogueID = id
+            });
             Debug.Log("open dialogue " + id);
         });
 
