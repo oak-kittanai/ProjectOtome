@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using IngameDebugConsole;
+using UnityEditor.SearchService;
 
 public class DevCommand
 {
@@ -58,6 +59,14 @@ public class DevCommand
             UIManager.Instance.ShowInventory(new()
             {
                 Items = inventory.GetItems()
+            });
+        });
+
+        DebugLogConsole.AddCommand<string>("scene", "โหลดฉาก", (name) =>
+        {
+            SceneLoader.Instance.LoadScene(name, () =>
+            {
+                Debug.Log($"Scene {name} loaded successfully.");
             });
         });
     }

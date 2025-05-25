@@ -6,6 +6,8 @@ public class Game : Singleton<Game>
     [Header("Singleton")]
     [SerializeField]
     private UIManager uiManager;
+    [SerializeField]
+    private SceneLoader sceneLoader;
 
     [Header("Console")]
     [SerializeField]
@@ -30,13 +32,14 @@ public class Game : Singleton<Game>
 
     void Init()
     {
-        Instantiate(uiManager);
+        if (uiManager != null) Instantiate(uiManager);
+        if (sceneLoader != null) Instantiate(sceneLoader);
 
         database = new();
         inventory = new(database);
         inventory.Setup(Array.Empty<int>());
 
         devCommand = new(inventory);
-        if (enableConsole) Instantiate(devConsole);
+        if (enableConsole && devConsole != null) Instantiate(devConsole);
     }
 }
