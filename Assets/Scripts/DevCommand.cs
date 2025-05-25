@@ -29,6 +29,7 @@ public class DevCommand
         {
             BattleBaseManager.Instance.ForceQTEPlay();
             Debug.Log("open QTE ");
+        });
 
         DebugLogConsole.AddCommand<int>("add_item", "เพิ่ม item", (id) =>
         {
