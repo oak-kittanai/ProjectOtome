@@ -16,9 +16,11 @@ namespace TurnBase
 
         [Header("Setting")]
         public float moveSpeed;
-        private float direction;
         private Vector3 targetPosition;
 
+        public string returnVa;
+
+        string StatusReturn = null;
 
         private void Update()
         {
@@ -30,7 +32,7 @@ namespace TurnBase
             }
             else
             {
-                ForceEndQTE();
+                ForceEndQTE("Take Damage");
                 Debug.Log("Reached the end");
                 pointerTransform.position = new Vector3(endPoint.position.x, endPoint.position.y, endPoint.position.z);
             }
@@ -46,9 +48,10 @@ namespace TurnBase
             }
         }
 
-        public void ForceEndQTE()
+        public void ForceEndQTE(string s)
         {
             moveSpeed = 0;
+            BattleBaseSystem.Instance.StatusReturn = s;
             StartCoroutine(DestroySelf());
         }
 
@@ -62,19 +65,24 @@ namespace TurnBase
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(greenZone, pointerTransform.position)) // dodge the damage | Dodge
             {
-                Debug.Log("Dodge");
-                ForceEndQTE();
+                Debug.Log("QTE Dodge");
+                StatusReturn = "Dodge";
+                ForceEndQTE(StatusReturn);
             }
             else if (RectTransformUtility.RectangleContainsScreenPoint(mediumZone, pointerTransform.position)) // Take damage but less | Def
             {
-                Debug.Log("Def");
-                ForceEndQTE();
+                Debug.Log("QTE Def");
+                StatusReturn = "Def";
+                ForceEndQTE(StatusReturn);
             }
             else // Take the damage
             {
-                Debug.Log("Take Damage");
-                ForceEndQTE();
+                Debug.Log("QTE Take Damage");
+                StatusReturn = "Dmg";
+                ForceEndQTE(StatusReturn);
             }
+
+            Debug.Log("QTE Return : " + StatusReturn);
         }
 
         private void OnEnable()
@@ -82,7 +90,6 @@ namespace TurnBase
             pointerTransform.position = startingPoint.position;
             targetPosition = endPoint.position;
 
-            direction = 1;
             Debug.Log("QTE Start");
         }
 

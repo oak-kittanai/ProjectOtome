@@ -1,3 +1,4 @@
+using TurnBase;
 using UnityEngine;
 
 public class BattleBaseManager : Singleton<BattleBaseManager>
@@ -7,9 +8,14 @@ public class BattleBaseManager : Singleton<BattleBaseManager>
     private RectTransform pointerTransform;
     public Transform uiContainer;
 
+    public void ForceBattleBasePlay(int enemiesNum)
+    {
+        BattleBaseSystem.Instance.ForcePlayBattleBase(enemiesNum);
+    }
+
     public void ForceQTEPlay() // Fix the scale
     {
-        GameObject canvasGO = GameObject.Find("Canvas");
+        uiContainer = GameObject.Find("QTEContainer").transform;
 
         QTEObject = Resources.Load<GameObject>("prefabs/QTEvent");
         if (QTEObject == null)
@@ -18,14 +24,7 @@ public class BattleBaseManager : Singleton<BattleBaseManager>
             return;
         }
 
-        Canvas canvasUI = FindFirstObjectByType<Canvas>();
-        if (canvasUI == null)
-        {
-            Debug.LogError("No Canvas found in scene.");
-            return;
-        }
-
-        GameObject qteObj = Instantiate(QTEObject, canvasUI.transform);
+        GameObject qteObj = Instantiate(QTEObject, uiContainer);
         RectTransform rect = qteObj.GetComponent<RectTransform>();
 
         // ChatGPT
