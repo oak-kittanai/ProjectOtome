@@ -34,7 +34,7 @@ namespace TurnBase
             Debug.Log("Dmg Receive");
             enemyCurrentHp -= damage;
 
-            if (enemyCurrentHp == 0)
+            if (enemyCurrentHp <= 0)
             {
                 enemyAnimator.SetBool("isDead", true);
                 enemyAnimator.SetBool("isIdle", false);

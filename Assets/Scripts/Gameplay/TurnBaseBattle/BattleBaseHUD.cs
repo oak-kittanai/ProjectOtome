@@ -27,7 +27,7 @@ namespace TurnBase
 
             if (BattleBaseSystem.Instance.battleState == BattleState.PLAYERTURN) { playerTurn = true; enemyTurn = false; }
 
-            if (BattleBaseSystem.Instance.battleState == BattleState.PLAYERTURN) { enemyTurn = true; playerTurn = true; }
+            if (BattleBaseSystem.Instance.battleState == BattleState.ENEMYTURN) { enemyTurn = true; playerTurn = true; }
 
             if (playerTurn)
             {
