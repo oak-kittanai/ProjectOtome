@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa475c205c4346aa91ba07fa053f490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 8774952900665040842, guid: 7cba90d007bc5485baee8d99b8e4289a, type: 3}
+  sceneLoader: {fileID: 8286108643720288117, guid: ab3f6426b98cb4aabaf7c81c9a8537c9, type: 3}
   devConsole: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
   enableConsole: 1
 --- !u!114 &5760591116517840501

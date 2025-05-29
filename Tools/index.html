@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otome Dialogue Creator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .section {
+      background-color: #eef2f7;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 6px solid #4a90e2;
+    }
+
+    .dialogue-item,
+    .choice-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      margin-bottom: 1rem;
+    }
+
+    label {
+      flex: 1 1 100px;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    input,
+    select,
+    textarea {
+      flex: 1 1 200px;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #4a90e2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #3b7cc4;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .button-row {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .text-fields.hidden {
+      display: none;
+    }
+
+    #output {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Otome Dialogue Creator</h1>
+    <input type="file" accept="application/json" onchange="importJSON(event)">
+    <div id="section-list"></div>
+    <div class="button-row">
+      <button onclick="addSection()">+ Add Section</button>
+      <button onclick="exportJSON()">Export JSON</button>
+    </div>
+    <pre id="output"></pre>
+  </div>
+  <script>
+    const characters = ["player", "yak", "ginnorn", "doctor", "payanak", "karut", "npc1", "npc2"];
+    let sectionId = 0;
+
+    function createDropdown(className, value = "") {
+      const select = document.createElement('select');
+      select.className = className;
+      characters.forEach(char => {
+        const option = document.createElement('option');
+        option.value = char;
+        option.textContent = char;
+        if (char === value) option.selected = true;
+        select.appendChild(option);
+      });
+      return select;
+    }
+
+    function addSection(sectionData = null) {
+      const sectionDiv = document.createElement('div');
+      sectionDiv.className = 'section';
+      sectionDiv.dataset.id = sectionId;
+
+      sectionDiv.innerHTML = `
+        <h3>Section ${sectionId}</h3>
+        <div class="dialogues"></div>
+        <button onclick="addDialogue(this)">+ Add Dialogue</button>
+        <button onclick="removeElement(this.parentElement)">Remove Section</button>
+      `;
+
+      const dialoguesContainer = sectionDiv.querySelector(".dialogues");
+
+      if (sectionData) {
+        sectionData.dialogues.forEach(dialogue => addDialogue(sectionDiv.querySelector("button"), dialogue));
+      }
+
+      document.getElementById('section-list').appendChild(sectionDiv);
+      sectionId++;
+    }
+
+    function addDialogue(button, dialogueData = null) {
+      const container = button.previousElementSibling;
+      const dialogueCount = container.querySelectorAll('.dialogue-item').length;
+
+      const dialogueDiv = document.createElement('div');
+      dialogueDiv.className = 'dialogue-item';
+
+      const speaker = createDropdown("speaker", dialogueData?.speaker);
+      const left = createDropdown("left", dialogueData?.left);
+      const right = createDropdown("right", dialogueData?.right);
+
+      const textFields = document.createElement('div');
+      textFields.className = 'text-fields';
+      textFields.innerHTML = `
+        <label>Text TH</label><input type="text" class="text_th" value="${dialogueData?.text_th || ''}">
+        <label>Text EN</label><input type="text" class="text_en" value="${dialogueData?.text_en || ''}">
+      `;
+
+      const background = document.createElement('input');
+      background.className = 'background';
+      background.value = dialogueData?.background || 'loka';
+
+      const choicesDiv = document.createElement('div');
+      choicesDiv.className = 'choices';
+
+      const addChoiceBtn = document.createElement('button');
+      addChoiceBtn.textContent = '+ Add Choice';
+      addChoiceBtn.onclick = () => addChoice(addChoiceBtn);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remove Dialogue';
+      removeBtn.onclick = () => removeElement(dialogueDiv);
+
+      dialogueDiv.appendChild(createLabel('Speaker'));
+      dialogueDiv.appendChild(speaker);
+      dialogueDiv.appendChild(createLabel('Left'));
+      dialogueDiv.appendChild(left);
+      dialogueDiv.appendChild(createLabel('Right'));
+      dialogueDiv.appendChild(right);
+      dialogueDiv.appendChild(textFields);
+      dialogueDiv.appendChild(createLabel('Background'));
+      dialogueDiv.appendChild(background);
+      dialogueDiv.appendChild(choicesDiv);
+      dialogueDiv.appendChild(addChoiceBtn);
+      dialogueDiv.appendChild(removeBtn);
+
+      container.appendChild(dialogueDiv);
+
+      if (dialogueData?.choice) {
+        dialogueData.choice.forEach(choice => addChoice(addChoiceBtn, choice));
+        textFields.classList.add('hidden');
+      }
+    }
+
+    function createLabel(text) {
+      const label = document.createElement('label');
+      label.textContent = text;
+      return label;
+    }
+
+    function addChoice(button, choiceData = null) {
+      const container = button.previousElementSibling;
+
+      const choiceDiv = document.createElement('div');
+      choiceDiv.className = 'choice-item';
+      choiceDiv.innerHTML = `
+        <label>Choice TH</label><input type="text" class="choice_th" value="${choiceData?.text_th || ''}">
+        <label>Choice EN</label><input type="text" class="choice_en" value="${choiceData?.text_en || ''}">
+        <label>Next</label><input type="number" class="choice_next" value="${choiceData?.next || ''}">
+        <button onclick="removeElement(this.parentElement)">Remove Choice</button>
+      `;
+
+      container.appendChild(choiceDiv);
+
+      const dialogueDiv = container.closest('.dialogue-item');
+      const textFields = dialogueDiv.querySelector('.text-fields');
+      if (container.children.length > 0) textFields.classList.add('hidden');
+    }
+
+    function removeElement(element) {
+      const parent = element.parentElement;
+      element.remove();
+      if (parent && parent.classList.contains('choices')) {
+        const dialogueDiv = parent.closest('.dialogue-item');
+        const textFields = dialogueDiv.querySelector('.text-fields');
+        if (parent.querySelectorAll('.choice-item').length === 0) {
+          textFields.classList.remove('hidden');
+        }
+      }
+    }
+
+    function exportJSON() {
+      const sections = [];
+
+      document.querySelectorAll('.section').forEach(section => {
+        const dialogues = [];
+        section.querySelectorAll('.dialogue-item').forEach((item, idx) => {
+          const speaker = item.querySelector('.speaker').value;
+          const left = item.querySelector('.left').value;
+          const right = item.querySelector('.right').value;
+          const text_th = item.querySelector('.text_th')?.value || "";
+          const text_en = item.querySelector('.text_en')?.value || "";
+          const background = item.querySelector('.background').value;
+
+          const dialogueObj = {
+            speaker, left, right, text_th, text_en, background
+          };
+
+          const choices = [];
+          item.querySelectorAll('.choice-item').forEach(choice => {
+            const text_th = choice.querySelector('.choice_th').value;
+            const text_en = choice.querySelector('.choice_en').value;
+            const next = parseInt(choice.querySelector('.choice_next').value);
+            choices.push({ text_th, text_en, next });
+          });
+
+          if (choices.length > 0) {
+            dialogueObj.choice = choices;
+          }
+
+          dialogues.push(dialogueObj);
+        });
+
+        sections.push({
+          id: parseInt(section.dataset.id),
+          dialogues
+        });
+      });
+
+      document.getElementById('output').textContent = JSON.stringify(sections, null, 2);
+    }
+
+    function importJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const json = JSON.parse(e.target.result);
+        document.getElementById("section-list").innerHTML = "";
+        sectionId = 0;
+        json.forEach(section => addSection(section));
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+
+</html>
