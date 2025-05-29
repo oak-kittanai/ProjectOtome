@@ -373,7 +373,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skeleton_03_White_Attack2_0: 6365295362127002255
+      Skeleton_03_White_Attack2_1: -7285326136999264472
+      Skeleton_03_White_Attack2_2: 366209984287091688
+      Skeleton_03_White_Attack2_3: -3781174671209945714
+      Skeleton_03_White_Attack2_4: 7965677853429526311
+      Skeleton_03_White_Attack2_5: -8885969398733115140
+      Skeleton_03_White_Attack2_6: -8772429545927101935
+      Skeleton_03_White_Attack2_7: -6612500068595427539
+      Skeleton_03_White_Attack2_8: 6991272432500089641
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

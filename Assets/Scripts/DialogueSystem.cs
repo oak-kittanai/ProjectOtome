@@ -38,7 +38,6 @@ public class DialogueSystem : MonoBehaviour
     public string eventDialogueData;
 
     public bool changeLanguage; // true = Th || false = En
-    private bool isEpisodeLoading = false;
 
     [Header("Setting")]
 

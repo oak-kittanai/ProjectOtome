@@ -35,6 +35,19 @@ public class DevCommand
             Debug.Log("open QTE ");
         });
 
+        DebugLogConsole.AddCommand<int>("BattleBase", "แสดง Turnbase ทันที", (Num) =>
+        {
+            if (Num >= 4)
+            {
+                Debug.LogWarning("invalid too many enemy to spawn");
+            }
+            else
+            {
+                BattleBaseManager.Instance.ForceBattleBasePlay(Num);
+                Debug.Log("open Turnbase ");
+            }
+        });
+
         DebugLogConsole.AddCommand<int>("add_item", "เพิ่ม item", (id) =>
         {
             inventory.AddItem(id);

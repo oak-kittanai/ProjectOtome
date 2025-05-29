@@ -398,7 +398,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skeleton_02_Yellow_Walk_0: 3211610269632633170
+      Skeleton_02_Yellow_Walk_1: -758822666351420288
+      Skeleton_02_Yellow_Walk_2: -5362862076985194890
+      Skeleton_02_Yellow_Walk_3: -2988833520444851170
+      Skeleton_02_Yellow_Walk_4: -2592455202378168348
+      Skeleton_02_Yellow_Walk_5: 2546560125649453234
+      Skeleton_02_Yellow_Walk_6: -6483190193190523412
+      Skeleton_02_Yellow_Walk_7: -1855222823242393482
+      Skeleton_02_Yellow_Walk_8: -2088342720744494190
+      Skeleton_02_Yellow_Walk_9: -3475452129100833432
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
