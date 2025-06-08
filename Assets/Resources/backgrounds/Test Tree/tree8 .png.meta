@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: 8efb324a8d361444bb7b674d2b2e258f
+guid: f5c1bc97995d5d14ba82c1cc3224b904
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1080107415642615209
-    second: SkeletonImage_0
+      213: -1751893430855084354
+    second: tree8 _0
+  - first:
+      213: -7195194828755146062
+    second: tree8 _1
+  - first:
+      213: 4120632636235701122
+    second: tree8 _2
+  - first:
+      213: -5435981956848525516
+    second: tree8 _3
+  - first:
+      213: 6569330134690880934
+    second: tree8 _4
+  - first:
+      213: 2967106992655636314
+    second: tree8 _5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +154,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SkeletonImage_0
+      name: tree8 _0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 104
-        height: 122
+        x: 59
+        y: 314
+        width: 98
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +169,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7525b533700b201f0800000000000000
-      internalID: -1080107415642615209
+      spriteID: eb6da81e43600b7e0800000000000000
+      internalID: -1751893430855084354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree8 _1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 311
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ba625ecc68852c90800000000000000
+      internalID: -7195194828755146062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree8 _2
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 281
+        width: 134
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28bd5b4fc8d6f2930800000000000000
+      internalID: 4120632636235701122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree8 _3
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 299
+        width: 17
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f5c9816338f84b0800000000000000
+      internalID: -5435981956848525516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree8 _4
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 176
+        width: 83
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6add482a3f2fa2b50800000000000000
+      internalID: 6569330134690880934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree8 _5
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 173
+        width: 122
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5711d3e6184d2920800000000000000
+      internalID: 2967106992655636314
       vertices: []
       indices: 
       edges: []
@@ -173,8 +298,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      SkeletonImage_0: -1080107415642615209
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

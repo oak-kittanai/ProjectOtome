@@ -1,3 +1,4 @@
+using FreeWorld;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,8 @@ public class UIInventory : UIClosable
     private TMP_Text nameText;
     [SerializeField]
     private TMP_Text descriptionText;
+    [SerializeField]
+    private TMP_Text amountText;
     [SerializeField]
     private Button useButton;
     [SerializeField]
@@ -113,6 +116,15 @@ public class UIInventory : UIClosable
     {
         nameText.text = item.Name;
         thumbnail.sprite = sprite;
+        if (item.Type == ItemType.Consumable)
+        {
+            amountText.enabled = true;
+            amountText.text = item.Quantity.ToString();
+        }else
+        {
+            amountText.enabled = false;
+        }
+
         descriptionText.text = item.Description;
         useButton.onClick.RemoveAllListeners();
         if (item.Type == ItemType.Consumable)
@@ -120,6 +132,8 @@ public class UIInventory : UIClosable
             useButton.gameObject.SetActive(true);
             useButton.onClick.AddListener(() =>
             {
+                CharacterStats.Instance.EatingItem(item.Calorie, "Food");
+                Debug.Log("Calorie : "+item.Calorie);
                 Game.Instance.GetInventory().RemoveItem(item.Id);
                 detailObj.SetActive(false);
             });

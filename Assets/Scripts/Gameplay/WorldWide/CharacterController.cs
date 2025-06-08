@@ -1,46 +1,60 @@
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+namespace FreeWorld
 {
-    public float speed = 5f;
-    public float jumpForce = 5f;
-    private Rigidbody rb;
-    private bool isGrounded;
-
-    void Start()
+    public class CharacterController : Singleton<CharacterController>
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        public float speed = 5f;
+        public float usedRunStamina;
 
-    void Update()
-    {
-        Move();
-        Jump();
-    }
+        public float runSpeed;
+        public bool isRunning;
 
-    void Move()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.AddForce(movement * speed);
-    }
-
-    void Jump()
-    {
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        void Update()
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            Move();
         }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+        void Move()
         {
-            isGrounded = true;
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+            if (movement != Vector3.zero && Input.GetKey(KeyCode.LeftShift) && !CharacterStats.Instance.isExhausted)
+            {
+                transform.Translate(movement * runSpeed * Time.deltaTime);
+                CharacterStats.Instance.UseStamina(usedRunStamina, true);
+                isRunning = true;
+            }
+            else
+            {
+                transform.Translate(movement * speed * Time.deltaTime);
+                CharacterStats.Instance.UseStamina(0, false);
+                isRunning = false;
+            }
+
+            Vector3 clampedPosition = transform.position;
+            if (transform.position.z >= 2.5f)
+            {
+                clampedPosition.z = 2.5f;
+                transform.position = clampedPosition;
+            }
+
+            if (transform.position.z <= -2.5f)
+            {
+                clampedPosition.z = -2.5f;
+                transform.position = clampedPosition;
+            }
         }
+
+        /*private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                isGrounded = true;
+            }
+        }*/
     }
 }
+

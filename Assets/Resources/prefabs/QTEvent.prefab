@@ -135,7 +135,8 @@ MonoBehaviour:
   mediumZone: {fileID: 188941570871569118}
   pointerTransform: {fileID: 246835351518987698}
   QTEObject: {fileID: 2699781849400824306}
-  moveSpeed: 90
+  moveSpeed: 300
+  returnVa: 
 --- !u!1 &4997512557735667296
 GameObject:
   m_ObjectHideFlags: 0
