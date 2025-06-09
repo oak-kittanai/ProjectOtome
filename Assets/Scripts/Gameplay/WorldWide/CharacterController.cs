@@ -7,8 +7,17 @@ namespace FreeWorld
         public float speed = 5f;
         public float usedRunStamina;
 
+        public Animator animator;
+        public SpriteRenderer spriteRenderer;
+
         public float runSpeed;
         public bool isRunning;
+
+        private void Start()
+        {
+            animator = GetComponentInChildren<Animator>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
 
         void Update()
         {
@@ -34,6 +43,8 @@ namespace FreeWorld
                 isRunning = false;
             }
 
+            UpdataAnimation(movement);
+
             Vector3 clampedPosition = transform.position;
             if (transform.position.z >= 2.5f)
             {
@@ -48,13 +59,22 @@ namespace FreeWorld
             }
         }
 
-        /*private void OnCollisionEnter(Collision collision)
+        public void UpdataAnimation(Vector3 direction)
         {
-            if (collision.gameObject.CompareTag("Ground"))
+            animator.SetFloat("X", direction.x);
+            if (direction.x < -0.01f)
             {
-                isGrounded = true;
+                spriteRenderer.flipX = true;
             }
-        }*/
+            
+            if (direction.x > 0.01f)
+            {
+                spriteRenderer.flipX = false;
+            }
+
+
+            animator.SetFloat("Y", direction.y);
+        }
     }
 }
 

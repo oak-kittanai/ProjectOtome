@@ -1,11 +1,10 @@
 using FreeWorld;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIInventory : UIClosable
+public class UIShop : MonoBehaviour
 {
     public struct Param
     {
@@ -34,7 +33,9 @@ public class UIInventory : UIClosable
     [SerializeField]
     private TMP_Text amountText;
     [SerializeField]
-    private Button useButton;
+    private Button clickButton;
+    [SerializeField]
+    private Button buyButton;
     [SerializeField]
     private Button closeButton;
     [SerializeField]
@@ -45,24 +46,15 @@ public class UIInventory : UIClosable
 
     private void Awake()
     {
-        MessagingCenter.Subscribe<InventoryController, List<Item>>(this, InventoryController.MessageOnUpdateItem, (_, items) => OnUpdateInventory(items));
+        MessagingCenter.Subscribe<InventoryController, List<Item>>(this, InventoryController.MessageOnUpdateItem, (_, items) => OnUpdateMarket(items));
     }
 
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < tabs.Length; i++)
         {
             tabs[i].toggle.onValueChanged.AddListener(_ => OnSelectTab());
         }
-    }
-
-    public void Setup(Param param, Action onClose = null)
-    {
-        RegisterCleanup(onClose);
-        closeButton.onClick.AddListener(Close);
-
-        OnUpdateInventory(param.Items);
-        OnSelectTab();
     }
 
     private void OnSelectTab()
@@ -79,7 +71,7 @@ public class UIInventory : UIClosable
         detailObj.SetActive(false);
     }
 
-    private void OnUpdateInventory(List<Item> items)
+    private void OnUpdateMarket(List<Item> items)
     {
         this.items = items;
         UpdateUI();
@@ -116,58 +108,32 @@ public class UIInventory : UIClosable
     {
         nameText.text = item.Name;
         thumbnail.sprite = sprite;
+
         if (item.Type == ItemType.Consumable)
         {
             amountText.enabled = true;
             amountText.text = item.Quantity.ToString();
-        }else
+        }
+        else
         {
             amountText.enabled = false;
         }
 
         descriptionText.text = item.Description;
-        useButton.onClick.RemoveAllListeners();
+        buyButton.onClick.RemoveAllListeners();
 
 
         if (item.Type == ItemType.Consumable)
         {
-            useButton.gameObject.SetActive(true);
-            useButton.onClick.AddListener(() =>
+            buyButton.gameObject.SetActive(true);
+            buyButton.onClick.AddListener(() =>
             {
 
-                if (item.Calorie > 0)
-                {
-                    CharacterStats.Instance.EatingItem(item.Calorie, "Food");
-                    Debug.Log("Calorie : " + item.Calorie);
-                    Game.Instance.GetInventory().DecreaseItemQuantity(item.Id);
-                }
-                else
-                {
-                    switch (item.BuffType) // for active buff
-                    {
-                        case BuffType.Strength:
-
-                            break;
-
-                        case BuffType.Hpregen:
-
-                            break;
-
-                        case BuffType.Focus:
-
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-
-                detailObj.SetActive(false);
             });
         }
         else
         {
-            useButton.gameObject.SetActive(false);
+
         }
         detailObj.SetActive(true);
     }

@@ -60,6 +60,18 @@ public class InventoryController
         MessagingCenter.Send(this, MessageOnUpdateItem, items);
     }
 
+    public void DecreaseItemQuantity(int id)
+    {
+        var item = GetItemById(id);
+        if (item == null) return;
+
+        item.Quantity -= 1;
+        if (item.Quantity <= 0)
+        {
+            RemoveItem(item.Id);
+        }
+    }
+
     private Item GetItemById(int id)
     {
         var itemData = database.GetItemData();
@@ -111,13 +123,15 @@ public class Item
         Type = type;
     }
 
-    public Item(int id, string name, string description, ItemType type, BuffType buff)
+    public Item(int id, string name, string description, ItemType type, BuffType buff, int quantity)
     {
         Id = id;
         Name = name;
         Description = description;
         Type = type;
         BuffType = buff;
+
+        Quantity = Mathf.Min(quantity, MaxStack);
     }
 
     public Item(int id, string name, string description, ItemType type, float calorie, int quantity) // Food
