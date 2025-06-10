@@ -24,6 +24,9 @@ public class Game : Singleton<Game>
     private InventoryController inventory;
     public InventoryController GetInventory() => inventory;
 
+    private ShopControl shop;
+    public ShopControl GetShop() => shop;
+
     private DevCommand devCommand;
 
     protected override void Awake()
@@ -41,6 +44,9 @@ public class Game : Singleton<Game>
         saveSystem = new();
         database = new();
         inventory = new(database);
+        inventory.Setup(Array.Empty<int>());
+
+        shop = new(database);
         inventory.Setup(Array.Empty<int>());
 
         devCommand = new(inventory);

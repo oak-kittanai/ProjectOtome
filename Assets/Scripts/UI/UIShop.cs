@@ -19,7 +19,7 @@ public class UIShop : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject itemObj;
+    private GameObject itemShopObj;
     [SerializeField]
     private Transform leftContent;
     [SerializeField]
@@ -88,7 +88,7 @@ public class UIShop : MonoBehaviour
         {
             if (item.Type != currentType) continue;
 
-            var obj = Instantiate(itemObj, leftContent);
+            var obj = Instantiate(itemShopObj, leftContent);
             Utility.LoadItemSprite(item.Id, sprite =>
             {
                 if (obj != null && sprite != null)
@@ -107,7 +107,7 @@ public class UIShop : MonoBehaviour
     private void ShowDetail(Item item, Sprite sprite)
     {
         nameText.text = item.Name;
-        thumbnail.sprite = sprite;
+        //thumbnail.sprite = sprite;
 
         if (item.Type == ItemType.Consumable)
         {

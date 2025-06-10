@@ -8,8 +8,6 @@ namespace FreeWorld
         public bool useItem; // for test in recharge
         public bool currentInAction;
 
-        public int currentCurrency;
-
         void Start()
         {
             currentFood = maxFood; currentStamina = maxStamina;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InventoryController
 {
+    public int currentCurrency;
+    public int maxCurrency = 99999;
+
     private readonly List<Item> items = new List<Item>();
     private Database database;
 
