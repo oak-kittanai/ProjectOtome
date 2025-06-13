@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using IngameDebugConsole;
-using UnityEditor.SearchService;
 
 public class DevCommand
 {
     private InventoryController inventory;
+    private ShopControl market;
 
-    public DevCommand(InventoryController inventory)
+
+    public DevCommand(InventoryController inventory, ShopControl shop)
     {
+        this.market = shop;
         this.inventory = inventory;
         RegisterCommand();
     }
@@ -48,7 +50,28 @@ public class DevCommand
             }
         });
 
-        DebugLogConsole.AddCommand<int>("add_item", "เพิ่ม item", (id) =>
+        // Add to Shop
+        DebugLogConsole.AddCommand<int>("add_shopitem", "เพิ่ม item ร้านค้า", (id) =>
+        {
+            market.AddItem(id);
+        });
+
+        DebugLogConsole.AddCommand<int>("remove_showitem", "ลบ item ร้านค้า", (id) =>
+        {
+            market.RemoveItem(id);
+        });
+
+        DebugLogConsole.AddCommand("show_shop", "เปิด shop", () =>
+        {
+            UIManager.Instance.ShowShop(new()
+            {
+                Items = market.GetItems()
+            });
+
+        });
+
+        // Add to Inventory
+        DebugLogConsole.AddCommand<int, int>("add_item", "เพิ่ม item", (id, num) =>
         {
             inventory.AddItem(id);
         });
@@ -63,6 +86,7 @@ public class DevCommand
             for (int i = 0; i < 10; i++)
             {
                 int id = Random.Range(0, 15);
+                int randomNum = Random.Range(1, 3);
                 inventory.AddItem(id);
             }
         });

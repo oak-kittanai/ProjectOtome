@@ -51,6 +51,12 @@ public class InventoryController
         }
 
         items.Add(item);
+
+        /*for (int i = 0; i <= num; i++)
+        {
+            items.Add(item);
+        }*/
+
         MessagingCenter.Send(this, MessageOnUpdateItem, items);
     }
 
@@ -82,9 +88,7 @@ public class InventoryController
         {
             if (itemData[i].Id == id)
             {
-                var template = itemData[i];
-
-                return new Item(template.Id, template.Name, template.Description, template.Type, template.Calorie, 1);
+                return itemData[i];
             }
         }
 
@@ -101,6 +105,7 @@ public enum ItemType
 
 public enum BuffType
 {
+    NONE,
     Strength,
     Hpregen,
     Focus

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,6 +51,16 @@ public class UIManager : Singleton<UIManager>
             if (obj == null) return;
             var inventory = Instantiate(obj, canvas.transform).GetComponent<UIInventory>();
             if (inventory != null) inventory.Setup(param);
+        });
+    }
+
+    public void ShowShop(UIShop.Param param)
+    {
+        Utility.LoadUI("Shop", obj =>
+        {
+            if (obj == null) return;
+            var shop = Instantiate(obj, canvas.transform).GetComponent<UIShop>();
+            if (shop != null) shop.Setup(param);
         });
     }
 

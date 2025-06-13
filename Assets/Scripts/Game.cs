@@ -49,7 +49,7 @@ public class Game : Singleton<Game>
         shop = new(database);
         inventory.Setup(Array.Empty<int>());
 
-        devCommand = new(inventory);
+        devCommand = new(inventory, shop);
         if (enableConsole && devConsole != null) Instantiate(devConsole);
     }
 }

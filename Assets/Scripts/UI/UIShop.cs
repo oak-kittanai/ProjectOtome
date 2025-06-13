@@ -1,10 +1,11 @@
 using FreeWorld;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIShop : MonoBehaviour
+public class UIShop : UIClosable
 {
     public struct Param
     {
@@ -33,11 +34,15 @@ public class UIShop : MonoBehaviour
     [SerializeField]
     private TMP_Text amountText;
     [SerializeField]
+    private TMP_Text priceText;
+    [SerializeField]
     private Button clickButton;
     [SerializeField]
     private Button buyButton;
     [SerializeField]
     private Button closeButton;
+    [SerializeField]
+    private int itemPrice;
     [SerializeField]
     private Tab[] tabs;
 
@@ -46,7 +51,7 @@ public class UIShop : MonoBehaviour
 
     private void Awake()
     {
-        MessagingCenter.Subscribe<InventoryController, List<Item>>(this, InventoryController.MessageOnUpdateItem, (_, items) => OnUpdateMarket(items));
+        MessagingCenter.Subscribe<ShopControl, List<Item>>(this, ShopControl.MessageOnUpdateItem, (_, items) => OnUpdateMarket(items));
     }
 
     private void Start()
@@ -55,6 +60,15 @@ public class UIShop : MonoBehaviour
         {
             tabs[i].toggle.onValueChanged.AddListener(_ => OnSelectTab());
         }
+    }
+
+    public void Setup(Param param, Action onClose = null)
+    {
+        RegisterCleanup(onClose);
+        closeButton.onClick.AddListener(Close);
+
+        OnUpdateMarket(param.Items);
+        OnSelectTab();
     }
 
     private void OnSelectTab()
@@ -93,10 +107,9 @@ public class UIShop : MonoBehaviour
             {
                 if (obj != null && sprite != null)
                 {
-                    if (obj.TryGetComponent(out Image image))
-                    {
-                        image.sprite = sprite;
-                    }
+                    var itemImage = obj.transform.Find("ItemImage")?.GetComponent<Image>();
+                    if (itemImage != null) itemImage.sprite = sprite;
+
                     if (obj.TryGetComponent(out Button button)) button.onClick.AddListener(() => ShowDetail(item, sprite));
                     obj.SetActive(true);
                 }
@@ -109,37 +122,62 @@ public class UIShop : MonoBehaviour
         nameText.text = item.Name;
         //thumbnail.sprite = sprite;
 
-        if (item.Type == ItemType.Consumable)
+        /*if (item.Type == ItemType.Consumable)
         {
             amountText.enabled = true;
-            amountText.text = item.Quantity.ToString();
+            amountText.text = item.Quantity.ToString(); //  Fix this
         }
         else
         {
             amountText.enabled = false;
+        }*/
+
+
+        if (itemPrice <= 0)
+        {
+            priceText.enabled = false;
         }
+        
+        amountText.enabled = false; // can only buy 1 for now
 
         descriptionText.text = item.Description;
+
         buyButton.onClick.RemoveAllListeners();
+        clickButton.onClick.RemoveAllListeners();
 
-
-        if (item.Type == ItemType.Consumable)
+        clickButton.onClick.AddListener(() =>
         {
-            buyButton.gameObject.SetActive(true);
-            buyButton.onClick.AddListener(() =>
+            
+            
+        });
+
+        buyButton.onClick.AddListener(() =>
+        {
+            if (item.Type == ItemType.Consumable)
             {
 
-            });
-        }
-        else
-        {
+            }
+            else if (item.Type == ItemType.Gift)
+            {
 
-        }
+            }
+            else
+            {
+
+            }
+
+            Debug.Log("Buy Item Id : " +  item.Id);
+
+            Game.Instance.GetShop().BuyItem(item.Id, 1); // add Num
+            Game.Instance.GetShop().RemoveItem(item.Id);
+        });
+
+        
         detailObj.SetActive(true);
     }
 
     void OnDestroy()
     {
-        MessagingCenter.Unsubscribe<InventoryController, List<Item>>(this, InventoryController.MessageOnUpdateItem);
+        MessagingCenter.Unsubscribe<ShopControl, List<Item>>(this, ShopControl.MessageOnUpdateItem);
     }
 }
