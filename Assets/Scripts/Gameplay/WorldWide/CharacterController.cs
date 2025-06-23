@@ -7,10 +7,6 @@ namespace FreeWorld
         public float speed = 5f;
         public float usedRunStamina;
 
-        [Header("Skin Setting")]
-        public string SkinName;
-        [SerializeField] RuntimeAnimatorController controller;
-
         public Animator animator;
         public SpriteRenderer spriteRenderer;
 
@@ -26,25 +22,6 @@ namespace FreeWorld
         void Update()
         {
             Move();
-            CheckSkin();
-        }
-
-        void CheckSkin()
-        {
-            switch (SkinName)
-            {
-                case "Nomal": controller = Resources.Load<RuntimeAnimatorController>("characters/MainChar/Skins/Nomal/NomalCloth"); break;
-
-                case "Thai1": controller = Resources.Load<RuntimeAnimatorController>("characters/MainChar/Skins/Thai1/ThaiCloth1"); break;
-
-                case "Thai2": controller = Resources.Load<RuntimeAnimatorController>("characters/MainChar/Skins/Thai2/ThaiCloth2"); break;
-
-                default:
-                    Debug.LogWarning("Can't Find The " + SkinName + " Skin or Path");
-                    break;
-            }   
-
-            animator.runtimeAnimatorController = controller;
         }
 
         void Move()
