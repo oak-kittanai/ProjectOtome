@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_SerializedVersion: 0
   m_AgentTypeID: 0
   m_CollectObjects: 1
-  m_Size: {x: 38, y: 3.6, z: 4.62}
+  m_Size: {x: 38, y: 3.6, z: 4.2}
   m_Center: {x: 0, y: 0.05, z: 1.93}
   m_LayerMask:
     serializedVersion: 2
@@ -1478,7 +1478,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 9e5e528d70d02b547af69dfaa7d8158d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1388072079
 GameObject:
@@ -2380,7 +2380,7 @@ Animator:
   m_GameObject: {fileID: 3369278981350513459}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d854e31244f416f459bfb00e8cba9659, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4a14df1d06ec0c64a98d02cbb33d9a9b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2517,7 +2517,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.51, y: 1.2}
+  m_Size: {x: 0.9807692, y: 2.2307692}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

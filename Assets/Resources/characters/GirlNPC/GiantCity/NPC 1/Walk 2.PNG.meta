@@ -139,23 +139,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_9932_0
+      name: Walk 2_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 6
-        width: 78
-        height: 118
+        x: 12
+        y: 7
+        width: 51
+        height: 116
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 03c2b1a887952a210800000000000000
-      internalID: 1342734013157813296
+      spriteID: 48109a4c159caed4eb705ef988ea2b26
+      internalID: 1207350299
       vertices: []
       indices: 
       edges: []
@@ -164,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fb262c58d2ce5b345b1b2f4d327f0be3
     internalID: 0
     vertices: []
     indices: 
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IMG_9932_0: 1342734013157813296
+      Walk 2_0: 1207350299
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
