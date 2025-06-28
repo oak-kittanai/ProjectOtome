@@ -1,0 +1,263 @@
+[
+  {
+    "id": 1,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ว้าว แถวนี้ยังเหมือนเดิมเลย ” ",
+        "text_en": "“Wow, this place still looks exactly the same.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันที่กลับมาเยี่ยมยายที่ต่าง เอ่ยขึ้นเบาๆ ในขณะที่กำลังก้าวลงมาจากตัวรถยนต์ พร้อมกับไล่สายตามองไปรอบๆ บรรยายกาศเงียบสงบ บ้านเรือนไทยหลังหนึ่ง ตั้งอยู่ท่ามกลางธรรมชาติมีทั้งทั้งต้นไม้ ทุ่งหญ้า สายลมที่พัดผ่านเบาๆ  ให้ความผ่อนคลายอย่างประหลาด ",
+        "text_en": "I spoke softly as I stepped out of the car, letting my eyes wander around. The peaceful atmosphere surrounded me. There was a traditional Thai wooden house amidst nature, with trees, grassy fields, and a gentle breeze that brought an oddly relaxing feeling.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ยายไปไหนเนี่ย สงสัยอยู่ในบ้านละมั้ง ”",
+        "text_en": "“ Where’s grandma? She must be inside the house.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันตัดสินใจเดินเข้าไปในบ้านหลังจากที่ไม่เห็นวี่แววของยาย",
+        "text_en": "I decided to walk into the house after seeing no sign of her outside.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ หืม? อะไรน่ะ ครั้งที่แล้วยังไม่เห็นมีเลย ”",
+        "text_en": "“ Hm? What’s that? That wasn’t here last time.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ระหว่างเดินเข้าไปในตัวบ้านฉันได้สังเกตเห็น กำไลเส้นหนึ่งวางตั้งเด่นอยู่ในตู้ใส ที่ยายมักเอาไว้เก็บของ ",
+        "text_en": "As I walked in, I noticed a bracelet displayed prominently in a glass cabinet that grandma usually used for storing precious items.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ โห สวยจัง ”",
+        "text_en": "“ Wow, it’s so beautiful.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันจ้องมองมันอย่างไม่อาจละสายตาได้ กำไลเส้นนี้มีลวดลายที่ประณีต สีทองอร่ามสดใสเหมือนกับส่องแสงแห่งเวทมนตร์ ชวนให้หลงใหลจนลืมสิ่งรอบตัวไปจนหมด",
+        "text_en": "I couldn’t take my eyes off it. The bracelet had intricate patterns, shining brightly in gold as if radiating magical light. It was so enchanting that I forgot about everything else around me.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "grandma",
+        "left": "player",
+        "right": "grandma",
+        "text_th": "“ อ้าวมาถึงแล้วเหรอลูก มายืนเหม่ออะไรตรงนี้หืม? ”",
+        "text_en": "“ Oh, you’re here already, dear. What are you staring at so intently?”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ในขณะที่ฉันกำลังเหม่อมองกำไลอยู่ จู่ๆยายก็โผล่มาจากไหนไม่รู้เข้ามาทักฉัน",
+        "text_en": "While I was lost staring at the bracelet, grandma suddenly appeared out of nowhere and called out to me.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ยายยย สวัสดีค่ะ คิดถึงจังเลยย ”",
+        "text_en": "“ Hi! Grandmaaa . I missed you so muchhhh.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันรีบหันไปสวัสดียายก่อนจะพุ่งเข้ากอดด้วยความคิดถึง",
+        "text_en": "I quickly turned to greet her and rushed into her arms for a hug, feeling all my longing flood out.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ แหม ไหว้พระเถอะลูก ปะๆ เราไปนั่งคุยกันดีๆ ดีกว่าเนอะ ”",
+        "text_en": "“ Aww, bless you, dear. Come on, let’s sit down and talk properly.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "หลังจากที่นั่งคุยกับยายไปไม่นาน ฉันก็ตัดสินใจถามเรื่องที่คาใจออกไป",
+        "text_en": "After talking with her for a while, I finally asked the question that had been on my mind.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ยายคะ กำไลที่อยู่ในตู้ ยายซื้อมาจากไหนเหรอคะ หนูไม่เคยเห็นเลย ”",
+        "text_en": "“ Grandma, where did you get that bracelet in the cabinet? I’ve never seen it before.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "grandma",
+        "left": "player",
+        "right": "grandma",
+        "text_th": "“ อ่อ อันนั้นยายเพิ่งเอากลับมาจากร้านซ่อมเองจ้ะ มันเป็นของสำคัญของยายเอง ”",
+        "text_en": "“ Oh, that one? I just got it back from the repair shop. It’s something very important to me.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ หืม ยังไงเหรอคะ? ”",
+        "text_en": "“ Hm? What do you mean?”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "grandma",
+        "left": "player",
+        "right": "grandma",
+        "text_th": "“ เรื่องมันเกิดขึ้นเมื่อ..... ”",
+        "text_en": "“ It’s a long story that happened when…”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันพยักหน้าลงเบาๆ หลังจากที่ยายเล่าจบ คือเรื่องมันเป็นแบบนี้ กำไลอันนี้นำพาเรื่องราวมหัศจรรย์มาให้ยายของฉัน มันเปรียบเสมือนประตูทะลุมิติ ไปอีกมิติหนึ่ง ที่นั่นทำให้ยายของฉันได้เจอกับตา และผุ้คนมากมายที่คอยช่วยเหลือ ",
+        "text_en": "I nodded slightly as she finished her story. This is how it went:  That bracelet brought my grandma an incredible adventure. It was like a portal to another dimension, where she met grandpa and many other people who helped her.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ยายบอกว่า  ตอนนั้นยายกลัวมาก และกำไลที่พาเธอทะลุมิติมาก็ดันหายไป โชคดีที่ยายเจอคนหลายๆคนช่วยให้คำแนะนำต่างๆ จนยายสามารถกลับมาได้",
+        "text_en": "Grandma said she had been so scared back then. And when she was stuck in that dimension, the bracelet went missing. Luckily, many kind people gave her guidance until she finally managed to return home.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "grandma",
+        "left": "player",
+        "right": "grandma",
+        "text_th": "“ เอาล่ะๆ เราไปกินข้าวกันดีกว่า จะได้รีบไปพักผ่อน เดินทางมาเหนื่อยๆ ”",
+        "text_en": "“ All right, dear. Let’s have dinner now so you can get some rest after your long journey.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ได้ค่ะยาย ไปกัน ”",
+        "text_en": "“ Okay, grandma. Let’s go.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันกับยายพากันไปกินอาหารก่อนจะพากันแยกย้ายไปพักผ่อน",
+        "text_en": "We had dinner together before heading off to rest.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ อ่า หิวน้ำจัง ”",
+        "text_en": "“ Ah… I’m so thirsty.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "หลังจากที่ฉันนอนพักอยู่ ฉันก็ตื่นขึ้นมากลางดึกพร้อมอาการหิวน้ำ ฉันจึงเดินเออมาหาน้ำดื่ม บรรยากาศตอนกลางคืนแถวนี้ค่อนข้างเงียบสนิท เพราะ คนส่วนใหญ่เข้านอนกันตั้งแต่หัวค่ำแล้ว หลังจากดื่มน้ำเสร็จ ฉันก็เตรียมจะเดินกลับห้องนอน แต่ตา่ของฉันดันไปสบเข้ากับกำไลเส้นนั้น แต่อะไรไม่รู้ดลใจให้ฉันเดินเข้าไปหามันอย่างช้าๆ ",
+        "text_en": "I woke up in the middle of the night feeling thirsty after my nap, so I got up to find some water. It was so quiet outside since most people here went to bed early. After drinking, I was about to head back to my room when my eyes caught sight of that bracelet again. For some reason, I felt compelled to walk toward it slowly.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ขอจับนิดนึงนะคะยาย ”",
+        "text_en": "“ Just a little touch, okay grandma.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันเอ่ยเป็นเชิงขออนุญาต ถึงแม้จะรู้อยู่แล้วว่ายายคงไม่ ได้ยิน555",
+        "text_en": " I said softly, as if asking her permission, even though I knew she couldn’t hear me, haha.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ โห ยิ่งดุใกล้ๆ ยิ่งสวยนะเนี่ย น่าจะแพงน่าดู ”",
+        "text_en": "“ Wow, it looks even more beautiful up close. Must’ve cost a lot.”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันยกขึ้นดูก่อนจะสำรวจไปรอบๆกำไลเส้นนี้ จนไปสะดุดตาเข้ากับอักษรบางอย่างที่อยู่ด้านในของกำไล",
+        "text_en": "I picked it up to look at it closely, examining every detail, until I noticed some inscriptions on the inside of the bracelet.",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ หืม มันอ่านว่าอะไรเนี่ย นะโมโลกันตัง ปะ ทะ วิ? ปฐวี ” ",
+        "text_en": "“ Hm? What does it say? Na Mo Lo Kan Tang Pa Tha Wi? Pa Tha Wee? ”",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ โอ็ย อ่านยากแหะ เอาใหม่ๆ ”",
+        "text_en": "“ Na Mo Lo Kan Tang Pathawi Wai “",
+        "background": "บ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ นะโมโลกันตัง ปฐวีไหว มิติเปิด ใจข้ามกาลา ”",
+        "text_en": "“ Open dimension, let the heart cross through time.”",
+        "background": "บ้านยาย"
+      }
+    ]
+  }
+]

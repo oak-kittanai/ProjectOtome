@@ -10,6 +10,10 @@ namespace FreeWorld
         public Animator animator;
         public SpriteRenderer spriteRenderer;
 
+        [Header("Skin Setting")]
+        public string SkinName;
+        [SerializeField] RuntimeAnimatorController controller;
+
         public float runSpeed;
         public bool isRunning;
 
@@ -22,6 +26,25 @@ namespace FreeWorld
         void Update()
         {
             Move();
+            CheckSkin();
+        }
+
+        void CheckSkin()
+        {
+            switch (SkinName)
+            {
+                case "Nomal": controller = Resources.Load<RuntimeAnimatorController>("characters/MainChar/Assests/Nomal/NomalCloth"); break;
+
+                case "Thai1": controller = Resources.Load<RuntimeAnimatorController>("characters/MainChar/Assests/Thai1/ThaiCloth"); break;
+
+                case "Thai2": controller = Resources.Load<RuntimeAnimatorController>("characters/MainChar/Assests/Thai2/ThaiCloth1"); break;
+
+                default:
+                    Debug.LogWarning("Can't Find The " + SkinName + " Skin or Path");
+                    break;
+            }
+
+            animator.runtimeAnimatorController = controller;
         }
 
         void Move()
@@ -66,7 +89,7 @@ namespace FreeWorld
             {
                 spriteRenderer.flipX = true;
             }
-            
+
             if (direction.x > 0.01f)
             {
                 spriteRenderer.flipX = false;

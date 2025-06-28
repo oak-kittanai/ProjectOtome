@@ -9,6 +9,7 @@ public class DialogueSystem : MonoBehaviour
 {
     public struct Param
     {
+        public string FolderID;
         public string DialogueID;
     }
 
@@ -35,6 +36,7 @@ public class DialogueSystem : MonoBehaviour
     private AudioClip typingSound;
 
     // Dialogue Data
+    public string folderData;
     public string eventDialogueData;
 
     public bool changeLanguage; // true = Th || false = En
@@ -48,7 +50,11 @@ public class DialogueSystem : MonoBehaviour
 
     public void Setup(Param param)
     {
+        folderData = param.FolderID;
         eventDialogueData = param.DialogueID;
+
+        Debug.Log(folderData);
+        Debug.Log(eventDialogueData);
 
         dialoguePanel.SetActive(true);
         choicePanel.SetActive(false);
@@ -56,10 +62,27 @@ public class DialogueSystem : MonoBehaviour
         typingSound = Resources.Load<AudioClip>("sounds/typing");
 
         CheckLauguage(changeLanguage);
-        json = Resources.Load<TextAsset>("dialogues/" + eventDialogueData);
+
+        
+        if (string.IsNullOrEmpty(folderData))
+        {
+            json = Resources.Load<TextAsset>($"data/{eventDialogueData}");
+        }else
+        {
+            json = Resources.Load<TextAsset>($"data/ {folderData} / {eventDialogueData}");
+        }
+
         if (json == null)
         {
-            Debug.LogError("Dialogue JSON not found: " + eventDialogueData);
+            if (string.IsNullOrEmpty(folderData))
+            {
+                Debug.LogError("Dialogue JSON not found: " + eventDialogueData);
+            }
+            else
+            {
+                Debug.LogError("Dialogue JSON not found: " + eventDialogueData + " or Folder not found: " + folderData);
+            }
+                
             DialogueEnd();
             return;
         }
