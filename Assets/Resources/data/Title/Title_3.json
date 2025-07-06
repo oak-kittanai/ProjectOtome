@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันพยักหน้าลงเบาๆ หลังจากที่ยายเล่าจบ คือเรื่องมันเป็นแบบนี้ กำไลอันนี้นำพาเรื่องราวมหัศจรรย์มาให้ยายของฉัน มันเปรียบเสมือนประตูทะลุมิติ ไปอีกมิติหนึ่ง ที่นั่นทำให้ยายของฉันได้เจอกับตา และผุ้คนมากมายที่คอยช่วยเหลือ ",
+        "text_en": "I nodded slightly as she finished her story. This is how it went:  That bracelet brought my grandma an incredible adventure. It was like a portal to another dimension, where she met grandpa and many other people who helped her.",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ยายบอกว่า  ตอนนั้นยายกลัวมาก และกำไลที่พาเธอทะลุมิติมาก็ดันหายไป โชคดีที่ยายเจอคนหลายๆคนช่วยให้คำแนะนำต่างๆ จนยายสามารถกลับมาได้",
+        "text_en": "Grandma said she had been so scared back then. And when she was stuck in that dimension, the bracelet went missing. Luckily, many kind people gave her guidance until she finally managed to return home.",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "grandma",
+        "left": "grandma",
+        "right": "player",
+        "text_th": "“ เอาล่ะๆ เราไปกินข้าวกันดีกว่า จะได้รีบไปพักผ่อน เดินทางมาเหนื่อยๆ ”",
+        "text_en": "“ All right, dear. Let’s have dinner now so you can get some rest after your long journey.”",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "grandma",
+        "right": "player",
+        "text_th": "“ ได้ค่ะยาย ไปกัน ”",
+        "text_en": "“ Okay, grandma. Let’s go.”",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันกับยายพากันไปกินอาหารก่อนจะพากันแยกย้ายไปพักผ่อน",
+        "text_en": "We had dinner together before heading off to rest.",
+        "background": "ในบ้านยาย"
+      }
+    ]
+  }
+]

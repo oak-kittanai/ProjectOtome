@@ -1,0 +1,71 @@
+
+  {
+    "id": 3,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "หลังจากดื่มน้ำเสร็จ ฉันก็เตรียมจะเดินกลับห้องนอน แต่ตา่ของฉันดันไปสบเข้ากับกำไลเส้นนั้น แต่อะไรไม่รู้ดลใจให้ฉันเดินเข้าไปหามันอย่างช้าๆ ",
+        "text_en": "After drinking, I was about to head back to my room when my eyes caught sight of that bracelet again. For some reason, I felt compelled to walk toward it slowly.",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ขอจับนิดนึงนะคะยาย ”",
+        "text_en": "“ Just a little touch, okay grandma.”",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันเอ่ยเป็นเชิงขออนุญาต ถึงแม้จะรู้อยู่แล้วว่ายายคงไม่",
+        "text_en": " I said softly, as if asking her permission, even though I knew she couldn’t hear me, haha.",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ โห ยิ่งดุใกล้ๆ ยิ่งสวยนะเนี่ย น่าจะแพงน่าดู ”",
+        "text_en": "“ Wow, it looks even more beautiful up close. Must’ve cost a lot.”",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันยกขึ้นดูก่อนจะสำรวจไปรอบๆกำไลเส้นนี้ จนไปสะดุดตาเข้ากับอักษรบางอย่างที่อยู่ด้านในของกำไล",
+        "text_en": "I picked it up to look at it closely, examining every detail, until I noticed some inscriptions on the inside of the bracelet.",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ หืม มันอ่านว่าอะไรเนี่ย นะโมโลกันตัง ปะ ทะ วิ? ปฐวี ” ",
+        "text_en": "“ Hm? What does it say? Na Mo Lo Kan Tang Pa Tha Wi? Pa Tha Wee? ”",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ โอ็ย อ่านยากแหะ เอาใหม่ๆ ”",
+        "text_en": "“ Ugh, that’s hard to read. Let me try again.”",
+        "background": "ในบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ นะโมโลกันตัง ปฐวีไหว มิติเปิด ใจข้ามกาลา ”",
+        "text_en": "“ Na-mo-lo-kan-tang Pa-tha-wi-wai Mi-ti-pert Jai-kham-ka-la ”",
+        "background": "ในบ้านยาย"
+      }
+    ]
+  }
+]

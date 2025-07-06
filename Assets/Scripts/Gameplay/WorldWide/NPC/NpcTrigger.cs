@@ -5,6 +5,7 @@ public class NpcTrigger : MonoBehaviour
     [SerializeField] Collider coll;
 
     [Header("Setting")]
+    public bool isQuest;
     [SerializeField] RuntimeAnimatorController controller;
 
     [Header("Child Set")]
@@ -12,7 +13,11 @@ public class NpcTrigger : MonoBehaviour
 
     void Start()
     {
-        coll = GetComponentInChildren<Collider>();
+        if (isQuest)
+        {
+            coll = GetComponentInChildren<Collider>();
+        }
+        
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -35,9 +40,13 @@ public class NpcTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (isQuest)
         {
-            // Need to add Dialogue
+            if (other.tag == "Player")
+            {
+                // Need to add Dialogue
+            }
         }
+        
     }
 }

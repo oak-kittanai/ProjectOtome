@@ -1,22 +1,26 @@
 using System.Collections;
-using System.IO;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour
 {
     public float walkDelay;
     public Transform[] WalkPoint;
 
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    [SerializeField] Animator animator;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] NavMeshAgent agent;
 
+    [Header("Ai Setting")]
+    public float walkArea;
     public float walkSpeed;
-
     private bool reachFinalPoint;
     private int pointIndex;
+    private Vector3 _selfOriginalDistance;
+    public bool continueWalk;
+    public bool stopWalk;
 
-    private bool continueWalk;
-    private bool stopWalk;
+    private Vector3 lastPosition;
 
     [Header("Sprite Setting")]
     public bool isMen;
@@ -26,6 +30,10 @@ public class NPCMovement : MonoBehaviour
 
     private void Start()
     {
+        continueWalk = true;
+
+        agent = GetComponentInChildren<NavMeshAgent>();
+        GetComponentInChildren<NavMeshAgent>().updateRotation = false;
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         SkinPath();
@@ -33,7 +41,13 @@ public class NPCMovement : MonoBehaviour
 
     private void Update()
     {
+        Vector3 moveDirection = agent.desiredVelocity.normalized;
+
         ControlMovement();
+        CheckDirection(moveDirection);
+
+        lastPosition = transform.position;
+        print(moveDirection);
 
         if (controller == null)
         {
@@ -43,26 +57,13 @@ public class NPCMovement : MonoBehaviour
 
     void ControlMovement()
     {
-        float speed = walkSpeed * Time.deltaTime;
-
         if (pointIndex == WalkPoint.Length)
         {
             reachFinalPoint = true;
         }
 
-        //transform.position = Vector2.MoveTowards
-        /*if (Vector3.Distance(transform.position, WalkPoint[pointIndex].position) >= 0.01)
-        {
-            if (continueWalk)
-            {
-                Vector3.MoveTowards(transform.position, WalkPoint[pointIndex].position, speed);
-                if (Vector3.Distance(transform.position, WalkPoint[pointIndex].position) <= 0.01)
-                {
-                    continueWalk = false;
-                    StartCoroutine(WalkDelay());
-                }
-            }
-        }*/
+        agent.speed = walkSpeed;
+        RandomWalk();
     }
 
     void SkinPath()
@@ -96,6 +97,52 @@ public class NPCMovement : MonoBehaviour
         }
     }
 
+    void RandomWalk()
+    {
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            reachFinalPoint = true;
+            if (reachFinalPoint)
+            {
+                StartCoroutine(WalkDelay());
+                reachFinalPoint = false;
+            }
+        }
+
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            Vector3 point;
+            if (continueWalk)
+            {
+                reachFinalPoint = false;
+                if (RandomPoint(this.transform.position, walkArea, out point))
+                {
+                    Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+                    agent.SetDestination(point);
+                    point = _selfOriginalDistance;
+                }
+            }
+        }
+    }
+
+    void CheckDirection(Vector3 direction)
+    {
+        animator.SetFloat("X", direction.x);
+        if (direction.x < -0.01f)
+        {
+            spriteRenderer.flipX = true;
+        }
+
+        if (direction.x > 0.01f)
+        {
+            spriteRenderer.flipX = false;
+        }
+
+
+        animator.SetFloat("Y", direction.y);
+    }
+
     IEnumerator WalkDelay()
     {
         yield return new WaitForSeconds(walkDelay);
@@ -105,11 +152,24 @@ public class NPCMovement : MonoBehaviour
             stopWalk = false;
             continueWalk = true;
         }
-        else
+    }
+
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+        Vector3 randomPoint = center + Random.insideUnitSphere * range;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1, NavMesh.AllAreas))
         {
-            pointIndex++;
-            stopWalk = false;
-            continueWalk = true;
+            result = hit.position;
+            return true;
         }
+
+        result = Vector3.zero;
+        return false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, walkArea);
     }
 }

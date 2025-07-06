@@ -59,17 +59,20 @@ public class DialogueSystem : MonoBehaviour
         dialoguePanel.SetActive(true);
         choicePanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
-        typingSound = Resources.Load<AudioClip>("sounds/typing");
+        typingSound = Resources.Load<AudioClip>("sounds/typing"); // add typing effect
 
         CheckLauguage(changeLanguage);
 
-        
+        string fileData;
         if (string.IsNullOrEmpty(folderData))
         {
-            json = Resources.Load<TextAsset>($"data/{eventDialogueData}");
-        }else
+            fileData = $"data/{eventDialogueData}";
+            json = Resources.Load<TextAsset>(fileData);
+        }
+        else
         {
-            json = Resources.Load<TextAsset>($"data/ {folderData} / {eventDialogueData}");
+            fileData = $"data/{folderData}/{eventDialogueData}";
+            json = Resources.Load<TextAsset>(fileData);
         }
 
         if (json == null)

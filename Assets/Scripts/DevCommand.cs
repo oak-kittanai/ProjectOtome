@@ -16,8 +16,18 @@ public class DevCommand
 
     private void RegisterCommand()
     {
-        DebugLogConsole.AddCommand<string, string>("dialogue", "แสดง dialogue ทันที", (folderid, id) =>
+        DebugLogConsole.AddCommand<string, string>("dialogue", "แสดง dialogue ทันที", (id, folderid) =>
         {
+            if (string.IsNullOrEmpty(folderid) && !string.IsNullOrEmpty(id))
+            {
+                UIManager.Instance.ShowDialogue(new()
+                {
+                    DialogueID = id
+                });
+                Debug.Log("open dialogue " + id);
+                return;
+            }
+
             if (string.IsNullOrEmpty(id))
             {
                 Debug.LogWarning("invalid dialogue id");

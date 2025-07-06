@@ -1,0 +1,39 @@
+
+  {
+    "id": 0,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ว้าว แถวนี้ยังเหมือนเดิมเลย ” ",
+        "text_en": "“ Wow, this place still looks exactly the same.”",
+        "background": "หน้าบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันที่กลับมาเยี่ยมยายที่ต่าง เอ่ยขึ้นเบาๆ ในขณะที่กำลังก้าวลงมาจากตัวรถยนต์ พร้อมกับไล่สายตามองไปรอบๆ บรรยายกาศเงียบสงบ บ้านเรือนไทยหลังหนึ่ง ตั้งอยู่ท่ามกลางธรรมชาติมีทั้งทั้งต้นไม้ ทุ่งหญ้า สายลมที่พัดผ่านเบาๆ  ให้ความผ่อนคลายอย่างประหลาด ",
+        "text_en": "I spoke softly as I stepped out of the car, letting my eyes wander around. The peaceful atmosphere surrounded me. There was a traditional Thai wooden house amidst nature, with trees, grassy fields, and a gentle breeze that brought an oddly relaxing feeling.",
+        "background": "หน้าบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "“ ยายไปไหนเนี่ย สงสัยอยู่ในบ้านละมั้ง ”",
+        "text_en": "“ Where’s grandma? She must be inside the house.”",
+        "background": "หน้าบ้านยาย"
+      },
+      {
+        "speaker": "player",
+        "left": "player",
+        "right": "player",
+        "text_th": "ฉันตัดสินใจเดินเข้าไปในบ้านหลังจากที่ไม่เห็นวี่แววของยาย",
+        "text_en": "I decided to walk into the house after seeing no sign of her outside.",
+        "background": "หน้าบ้านยาย"
+      }
+    ]
+  }
+]
