@@ -16,7 +16,7 @@ public class DevCommand
 
     private void RegisterCommand()
     {
-        DebugLogConsole.AddCommand<string, string>("dialogue", "แสดง dialogue ทันที", (id, folderid) =>
+        DebugLogConsole.AddCommand<string, string>("dialogue", "แสดง dialogue ทันที", (folderid, id) =>
         {
             if (string.IsNullOrEmpty(folderid) && !string.IsNullOrEmpty(id))
             {

@@ -17,6 +17,7 @@ public class DialogueSystem : MonoBehaviour
     public Image backgroundImage;
     public Image mainImage;
     public Image otherImage;
+    public Image soloMainImage;
     public TextMeshProUGUI characterNameText; // make sure show only talk or show 2
     public TextMeshProUGUI dialogueText;
     public GameObject choicePanel, dialoguePanel;
@@ -146,7 +147,7 @@ public class DialogueSystem : MonoBehaviour
 
     IEnumerator PlayDialogue(int index)
     {
-        LoadDataCharacte(index);
+        LoadDataCharacter(index);
 
         isTyping = true;
 
@@ -155,12 +156,6 @@ public class DialogueSystem : MonoBehaviour
             DialogueEnd();
             yield break;
         }
-
-        /*if (index >= storyArray.Count || index < 0)
-        {
-            Debug.LogError($"Invalid dialogue index: {index}. storyArray count: {storyArray.Count}");
-            yield break;
-        }*/
 
         var node = storyArray[index];
 
@@ -207,10 +202,11 @@ public class DialogueSystem : MonoBehaviour
         isTyping = false;
     }
 
-    private void LoadDataCharacte(int index)
+    private void LoadDataCharacter(int index)
     {
         var node = storyArray[index];
 
+        string mainSpeaker = node["speaker"];
         string speakerEmotional = node["emotional"];
 
         string leftCharacter = node["left"];
@@ -218,15 +214,39 @@ public class DialogueSystem : MonoBehaviour
 
         string background = node["background"];
 
-        /*string bgPath = ($"Resources / backgrounds / {background}");
-        string mainSpeakerEmotional = ($"Resources / characters / {mainSpeaker} / {speakerEmotional}");
-        string leftCharacterSprite = ($"Resources / characters / {leftCharacter} / listener");
-        string rightCharacterSprite = ($"Resources / characters / {rightCharacter} / listener");
+        string bgPath = ($"backgrounds/ {background}");
+        string mainSpeakerEmotional = ($"characters/SpriteCharacter/{mainSpeaker}/char_{mainSpeaker}_{speakerEmotional}");
+        string leftCharacterSprite = ($"characters/SpriteCharacter/{leftCharacter}/listener");
+        string rightCharacterSprite = ($"characters/SpriteCharacter/{rightCharacter}/listener");
 
-        mainImage.sprite = mainSpeaker == leftCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(leftCharacterSprite);
-        otherImage.sprite = mainSpeaker == rightCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(rightCharacterSprite);
+        if (leftCharacter == rightCharacter && rightCharacter == mainSpeaker)
+        {
+            print("P and P and P");
+            mainImage.gameObject.SetActive(false);
+            otherImage.gameObject.SetActive(false);
+            soloMainImage.gameObject.SetActive(true);
+            soloMainImage.sprite = LoadSpriteFromPath(mainSpeakerEmotional);
+            print(mainSpeakerEmotional);
+        }
+        else if (leftCharacter == rightCharacter && rightCharacter != mainSpeaker)
+        {
+            print("in site");
+            mainImage.gameObject.SetActive(false);
+            otherImage.gameObject.SetActive(false);
+            soloMainImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            print("Nomal Talk");
+            mainImage.gameObject.SetActive(true);
+            otherImage.gameObject.SetActive(true);
+            soloMainImage.gameObject.SetActive(false);
+            mainImage.sprite = mainSpeaker == leftCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(leftCharacterSprite);
+            otherImage.sprite = mainSpeaker == rightCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(rightCharacterSprite);
+        }
 
-        backgroundImage.sprite = isBackgroundActive ? LoadSpriteFromPath(bgPath) : null;*/
+        backgroundImage.sprite = isBackgroundActive ? LoadSpriteFromPath(bgPath) : null;
+        backgroundImage.gameObject.SetActive(false);
     }
 
     void ShowChoices()

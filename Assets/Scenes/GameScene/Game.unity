@@ -596,7 +596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &325743721
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -654,6 +654,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coll: {fileID: 0}
+  path: Title_1
+  folderPath: Title
+  isPlayerInRange: 0
   isQuest: 1
   controller: {fileID: 0}
   animator: {fileID: 0}
@@ -1372,6 +1375,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coll: {fileID: 0}
+  path: 
+  folderPath: 
+  isPlayerInRange: 0
   isQuest: 0
   controller: {fileID: 0}
   animator: {fileID: 0}
@@ -2835,8 +2841,8 @@ MonoBehaviour:
   continueWalk: 0
   stopWalk: 0
   isMen: 0
-  spriteName: NPC_G_City_1
-  cityPath: City
+  spriteName: NPC_G_Sky_1
+  cityPath: SkyCity
   controller: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

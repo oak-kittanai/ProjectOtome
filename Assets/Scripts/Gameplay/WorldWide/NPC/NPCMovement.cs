@@ -47,7 +47,6 @@ public class NPCMovement : MonoBehaviour
         CheckDirection(moveDirection);
 
         lastPosition = transform.position;
-        print(moveDirection);
 
         if (controller == null)
         {
