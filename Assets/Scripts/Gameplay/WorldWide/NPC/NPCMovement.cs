@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class NPCMovement : MonoBehaviour
 {
     public float walkDelay;
-    public Transform[] WalkPoint;
 
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -56,11 +55,6 @@ public class NPCMovement : MonoBehaviour
 
     void ControlMovement()
     {
-        if (pointIndex == WalkPoint.Length)
-        {
-            reachFinalPoint = true;
-        }
-
         agent.speed = walkSpeed;
         RandomWalk();
     }

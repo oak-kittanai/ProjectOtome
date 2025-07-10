@@ -1,4 +1,3 @@
-using FreeWorld;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -135,7 +134,7 @@ public class UIShop : UIClosable
 
         if (itemPrice <= 0)
         {
-            priceText.enabled = false;
+            priceText.text = "0";
         }
         
         amountText.enabled = false; // can only buy 1 for now

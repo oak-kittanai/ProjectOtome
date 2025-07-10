@@ -162,7 +162,7 @@ public class DialogueSystem : MonoBehaviour
         string mainSpeaker = node["speaker"];
         string currentSpeaker = mainSpeaker;
 
-        string text = node["text_en"];
+        string text;
 
         text = changeLanguage ? node["text_th"] : node["text_en"];
         currentFullText = text;
@@ -185,8 +185,14 @@ public class DialogueSystem : MonoBehaviour
             hasChoice = false;
         }
 
-        characterNameText.text = currentSpeaker; // ขึ้นชื่อของคนที่พูดอยู่ !!!รอแก้
-        dialogueText.text = "";
+        var oldNode = storyArray[index - 1];
+        string oldText = changeLanguage ? oldNode["text_th"] : oldNode["text_en"];
+
+        characterNameText.text = currentSpeaker;
+        if (hasChoice)
+        {
+            dialogueText.text = oldText;
+        }
 
         if (text != null)
         {
@@ -252,7 +258,7 @@ public class DialogueSystem : MonoBehaviour
     void ShowChoices()
     {
         choicePanel.SetActive(true);
-        dialoguePanel.SetActive(false);
+        //dialoguePanel.SetActive(false);
         foreach (Transform child in choiceContainer)
             Destroy(child.gameObject); // clear old choices
 
@@ -267,11 +273,10 @@ public class DialogueSystem : MonoBehaviour
                 if (choice["next"] != null)
                 {
                     int nextDialogueID = choice["next"].AsInt;
-
+                    dialogueText.text = "";
                     LoadEventDialogueData(nextDialogueID);
                     currentIndex = 0;
                     typingCoroutine = StartCoroutine(PlayDialogue(currentIndex));
-
                     hasChoice = false;
                     btnObj.GetComponent<Button>().onClick.RemoveAllListeners();
                 }

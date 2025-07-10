@@ -6,7 +6,7 @@
         "speaker": "player",
         "emotional": "speak",
         "left": "player",
-        "right": "yak",
+        "right": "player",
         "text_th": "“ อ่า หิวน้ำจัง ”",
         "text_en": "“Ah… I’m so thirsty.”",
         "background": "ในบ้านยาย"
@@ -15,7 +15,7 @@
         "speaker": "player",
         "emotional": "speak",
         "left": "player",
-        "right": "yak",
+        "right": "player",
         "text_th": "หลังจากที่ฉันนอนพักอยู่ ฉันก็ตื่นขึ้นมากลางดึกพร้อมอาการหิวน้ำ ฉันจึงเดินเออมาหาน้ำดื่ม บรรยากาศตอนกลางคืนแถวนี้ค่อนข้างเงียบสนิท เพราะ คนส่วนใหญ่เข้านอนกันตั้งแต่หัวค่ำแล้ว ",
         "text_en": "I woke up in the middle of the night feeling thirsty after my nap, so I got up to find some water. It was so quiet outside since most people here went to bed early. ",
         "background": "ในบ้านยาย"

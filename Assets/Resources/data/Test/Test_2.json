@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "emotional": "speak",
+        "left": "player",
+        "right": "player",
+        "text_th": "สวัสดี",
+        "text_en": "Hello",
+        "background": "loka"
+      },
+      {
+        "speaker": "player",
+        "emotional": "speak",
+        "left": "player",
+        "right": "player",
+        "text_th": "คุณเป็นเกรึเปล่า",
+        "text_en": "Are you gay ?",
+        "background": "loka"
+      },
+      {
+        "speaker": "player",
+        "emotional": "speak",
+        "left": "player",
+        "right": "player",
+        "text_th": "",
+        "text_en": "",
+        "background": "loka",
+        "choice": [
+          {
+            "text_th": "เป็น",
+            "text_en": "yes",
+            "next": 1
+          },
+          {
+            "text_th": "ไม่เป็น",
+            "text_en": "nah",
+            "next": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "emotional": "speak",
+        "left": "player",
+        "right": "player",
+        "text_th": "โอ้คุณเป็นเก",
+        "text_en": "Holy you gay",
+        "background": "loka"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dialogues": [
+      {
+        "speaker": "player",
+        "emotional": "speak",
+        "left": "player",
+        "right": "player",
+        "text_th": "โอ้ดีมาก",
+        "text_en": "Oh good",
+        "background": "loka"
+      }
+    ]
+  }
+]
