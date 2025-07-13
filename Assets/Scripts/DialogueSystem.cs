@@ -162,6 +162,8 @@ public class DialogueSystem : MonoBehaviour
         string mainSpeaker = node["speaker"];
         string currentSpeaker = mainSpeaker;
 
+        characterNameText.text = currentSpeaker;
+
         string text;
 
         text = changeLanguage ? node["text_th"] : node["text_en"];
@@ -185,15 +187,16 @@ public class DialogueSystem : MonoBehaviour
             hasChoice = false;
         }
 
-        var oldNode = storyArray[index - 1];
-        string oldText = changeLanguage ? oldNode["text_th"] : oldNode["text_en"];
+        dialogueText.text = "";
 
-        characterNameText.text = currentSpeaker;
         if (hasChoice)
         {
+            var oldNode = storyArray[index - 1];
+            string oldText = changeLanguage ? oldNode["text_th"] : oldNode["text_en"];
+
             dialogueText.text = oldText;
         }
-
+        
         if (text != null)
         {
             foreach (char c in text)

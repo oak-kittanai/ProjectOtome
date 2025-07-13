@@ -17,7 +17,7 @@ public class BattleBaseManager : Singleton<BattleBaseManager>
     {
         uiContainer = GameObject.Find("QTEContainer").transform;
 
-        QTEObject = Resources.Load<GameObject>("prefabs/QTEvent");
+        //QTEObject = Resources.Load<GameObject>("prefabs/QTEvent");
         if (QTEObject == null)
         {
             Debug.LogError("QTEObject not found in Resources.");
