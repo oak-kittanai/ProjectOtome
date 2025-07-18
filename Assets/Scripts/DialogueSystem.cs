@@ -43,8 +43,6 @@ public class DialogueSystem : MonoBehaviour
     public bool changeLanguage; // true = Th || false = En
 
     [Header("Setting")]
-
-    public bool isBackgroundActive; // true = Background || false = No Background
     public bool isMiniDialogue; // true = MiniDialogue || false = Dialogue
 
     private TextAsset json;
@@ -223,7 +221,7 @@ public class DialogueSystem : MonoBehaviour
 
         string background = node["background"];
 
-        string bgPath = ($"backgrounds/ {background}");
+        string bgPath = ($"backgrounds/DIalogue_backgrounds/{background}");
         string mainSpeakerEmotional = ($"characters/SpriteCharacter/{mainSpeaker}/char_{mainSpeaker}_{speakerEmotional}");
         string leftCharacterSprite = ($"characters/SpriteCharacter/{leftCharacter}/listener");
         string rightCharacterSprite = ($"characters/SpriteCharacter/{rightCharacter}/listener");
@@ -254,8 +252,7 @@ public class DialogueSystem : MonoBehaviour
             otherImage.sprite = mainSpeaker == rightCharacter ? LoadSpriteFromPath(mainSpeakerEmotional) : LoadSpriteFromPath(rightCharacterSprite);
         }
 
-        backgroundImage.sprite = isBackgroundActive ? LoadSpriteFromPath(bgPath) : null;
-        backgroundImage.gameObject.SetActive(false);
+        backgroundImage.sprite = LoadSpriteFromPath(bgPath);
     }
 
     void ShowChoices()

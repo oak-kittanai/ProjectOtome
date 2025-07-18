@@ -10,6 +10,9 @@ namespace FreeWorld
         public Animator animator;
         public SpriteRenderer spriteRenderer;
 
+        public float frontBlock;
+        public float backBlock;
+
         [Header("Skin Setting")]
         public string SkinName;
         [SerializeField] RuntimeAnimatorController controller;
@@ -69,15 +72,15 @@ namespace FreeWorld
             UpdataAnimation(movement);
 
             Vector3 clampedPosition = transform.position;
-            if (transform.position.z >= 2.5f)
+            if (transform.position.z >= frontBlock)
             {
-                clampedPosition.z = 2.5f;
+                clampedPosition.z = frontBlock;
                 transform.position = clampedPosition;
             }
 
-            if (transform.position.z <= -2.5f)
+            if (transform.position.z <= backBlock)
             {
-                clampedPosition.z = -2.5f;
+                clampedPosition.z = -frontBlock;
                 transform.position = clampedPosition;
             }
         }
@@ -97,6 +100,11 @@ namespace FreeWorld
 
 
             animator.SetFloat("Y", direction.y);
+        }
+
+        private void OnCollisionEnter(Collision c)
+        {
+            print(c.gameObject.name);
         }
     }
 }
