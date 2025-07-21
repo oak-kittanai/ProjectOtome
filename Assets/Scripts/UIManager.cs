@@ -34,6 +34,16 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+    public void LoadProfile(ProfileManager.Param param)
+    {
+        Utility.LoadUI("ProfilePanel", obj =>
+        {
+            if (obj == null) return;
+            var profilePanel = Instantiate(obj, canvas.transform).GetComponent<ProfileManager>();
+            if (profilePanel != null) profilePanel.Setup(param);
+        });
+    }
+
     public void ShowMainMenu(UIMainMenu.Param param)
     {
         Utility.LoadUI("MainMenu", obj =>
